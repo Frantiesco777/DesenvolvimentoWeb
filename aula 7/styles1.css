@@ -1,0 +1,32 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#box{
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    margin: 0 auto; /* Centralizar */
+    background-color: green;
+    border: 5px red solid;
+    color: white; /* Cor do texto */
+    text-align: justify; /* Alinhamento Horizontal */
+    letter-spacing: 4px; /* Espaço entre as letras */
+    vertical-align: top; /* Alinhamento Vertical */
+    line-height: 40px; /* Altura da linha */
+    text-decoration: underline;
+    font-size: 10px;
+    font-weight: 900;
+}
+
+a:link{
+    color: red;
+}
+
+a:hover{
+    font-size: 40px;
+}
+
+a:visited{
+    color: blue;
+}

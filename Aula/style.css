@@ -1,0 +1,28 @@
+h1{
+    font-size: 30px;
+}
+
+.texto-principal{
+    font-size: 20px;
+    color: white;
+    background-color: indigo;
+    text-align: center;
+}
+
+#teste{
+    color: blue;
+}
+
+.red{
+    color: red;
+}
+
+.conteiner{
+    border: 2px solid red;
+    margin: 10px;
+    padding: 10px;
+    background-color: rgb(10, 231, 28);
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
