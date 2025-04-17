@@ -9,7 +9,7 @@ body{
     display: flex;
     justify-content: center;
     min-height: 100vh;
-    background: url('./imagens/anime.jpeg') no-repeat;
+    background: url('./imagens/backgrand_anime.jpg') no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -20,7 +20,6 @@ header{
     left: 0;
     width: 100%;
     padding: 20px 100px;
-    background: red;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -79,4 +78,107 @@ header{
 .navegacao .botao_login:hover{
     background: white;
     color: blue;
+}
+
+.wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.6); /* fundo escuro translúcido */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon img {
+    width: 18px;   
+    height: 18px;
+    object-fit: contain;
+}
+
+.wrapper .form_box{
+    width: 100%;
+    padding: 40px;
+}
+
+.form_box h2{
+    font-size: 2em;
+    color: orange;
+    text-align: center;
+}
+
+.imput_box{
+    position: relative;
+    width: 100%;
+    height: 40px;
+    border-bottom: 2px solid white;
+    display: flex;
+    align-items: center; 
+    margin: 10px 0;
+}
+
+.imput_box label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-20%);
+    font-size: 1em;
+    color: orange;
+    font-weight: 500;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.imput_box input:focus~label, .imput_box input:valid~label{
+    top: -5px;
+}
+
+.imput_box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white; 
+    font-size: 1em;
+    padding: 0 35px 0 5px;
+}
+
+.imput_box .icon{
+    position: absolute;
+    right: 8px;
+    font-size: 1.2em;
+    color: orange;
+    line-height: 57px;
+}
+
+.remember_forgot{
+    font-size: .9em; 
+    color: orange;
+    font-weight: 500;
+    margin: 15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.texto_transparente{
+    color: transparent;
+}
+
+.remember_forgot label input{
+    accent-color: #FF4500;
+    margin-right: 3px;
+}
+
+.remember_forgot a{
+    color: rgb(14, 163, 223);
+    text-decoration: none;
+}
+
+.remember_forgot a:hover{
+    text-decoration: underline;
 }

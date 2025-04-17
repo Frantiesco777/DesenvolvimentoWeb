@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aniglobal</title>
     <link rel="stylesheet" href="./style.css">
@@ -18,6 +19,37 @@
             <button class="botao_login">Login</button>
         </nav>
     </header>
+
+    <div class="wrapper">
+        <div class="form_box login">
+            <h2>Login</h2>
+            <form action="#">
+                <div class="imput_box">
+                    <span class="icon"><img src="https://img.icons8.com/?size=100&id=12623&format=png&color=FD7E14" alt="email icon"></span>
+                    <input type="email" name="emai" required>
+                    <label>Email</label>
+                </div>
+
+                <div class="imput_box">
+                    <span class="icon"><img src="https://img.icons8.com/?size=100&id=2862&format=png&color=FD7E14" alt="email icon"></span>
+                    <input type="password" name="senha" required>
+                    <label>Senha</label>
+                </div>
+                <div class="remember_forgot">
+                    <label><input type="checkbox">Lembre-me <label class="texto_transparente" for="text">texto texto texto texto</label></label>
+                    <a href="#">Esqueceu sua senha?</a>
+                </div>
+                <button type="submit" class="bnt">Login</button>
+                <div class="login_register">
+                    <p>Não tem uma conta? <a href="#" class="register_link">Registrar</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="style.css"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     
 </body>
 </html>
