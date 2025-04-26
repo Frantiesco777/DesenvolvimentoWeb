@@ -1,0 +1,268 @@
+@font-face {
+    font-family: 'AMORIA';
+    src: url('./Fontes/AMORIA.otf') format('opentype'); 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  h1{
+    font-family: 'AMORIA';
+  }
+
+ 
+
+  .assistindo h2,
+  .titulo-sessao {
+    background-color: rgba(255, 69, 0, 0.1);
+    padding: 10px 20px;
+    border-left: 5px solid #ff4500;
+    display: inline-block;
+    border-radius: 6px;
+    margin: 50px;
+  }
+  
+
+
+  .animes_assistindo {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0 20px;
+    flex-wrap: wrap; 
+  }
+  
+  .animes_assistindo img {
+    width: 100%; 
+    height: auto;
+    border-radius: 8px; 
+    transition: transform 0.3s ease;
+  }
+
+  .animes_assistindo img:hover {
+    transform: scale(1.05);
+  }
+  
+  .animes-em-breve {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0 20px;
+    flex-wrap: wrap;
+  }
+  
+  .animes-em-breve img {
+    width: 23%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+  
+  .animes-em-breve img:hover {
+    transform: scale(1.05);
+  }
+  
+  
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(-45deg, #07dd3d, #2ba0ff, #721e5d, #2a5298);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #fa0000;
+  }
+
+  @keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+  
+  /* Título */
+  .nome {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #222;
+    color: #f12602;
+  }
+  
+  .nome h1 {
+    font-size: 36px;
+  }
+  
+  /* Header geral */
+  header {
+    background-color: #333;
+    padding: 10px 0;
+  }
+  
+  .menu-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .navegacao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  /* Links do menu */
+  .links-menu {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .links-menu a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    transition: background-color 0.3s;
+  }
+  
+  .links-menu a:hover {
+    background-color: #555;
+    border-radius: 4px;
+  }
+  
+  /* Dropdown */
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #444;
+    flex-direction: column;
+    min-width: 150px;
+    z-index: 10;
+  }
+  
+  .dropdown:hover .submenu {
+    display: flex;
+  }
+  
+  .submenu a {
+    color: #fff;
+    padding: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .submenu a:hover {
+    background-color: #555;
+  }
+  
+  /* Barra de busca */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .search-bar input {
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .search-bar button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ff6600;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .search-bar button:hover {
+    background-color: #e65c00;
+  }
+
+  .anime-item {
+    width: 23%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .animes_assistindo .anime-item {
+    width: 23%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .animes_assistindo span {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif, sans-serif;
+    font-size: 16px;
+    color: #fff;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 5px 80px;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+  }
+  
+  .animes_assistindo span:hover {
+    background-color: rgba(255, 69, 0, 0.8);
+    cursor: pointer;
+  }
+  
+  .animes-em-breve .anime-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+  
+  .animes-em-breve .anime-item img:hover {
+    transform: scale(1.05);
+  }
+  
+  .animes-em-breve .anime-item span {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif, sans-serif;
+    font-size: 16px;
+    color: #fff;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 5px 80px;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+  }
+  
+  .animes-em-breve .anime-item span:hover {
+    background-color: rgba(255, 69, 0, 0.8);
+    cursor: pointer;
+  }     
+
+  #logoutBtn {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    font-size: 1.1em;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 30px; /* Espaço entre o botão e outros links */
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  #logoutBtn:hover {
+    background: white;
+    color: #FF4500; /* Cor de fundo de hover, mesma do estilo do site */
+  }
+  

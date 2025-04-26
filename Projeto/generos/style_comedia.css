@@ -1,0 +1,210 @@
+@font-face {
+    font-family: 'AMORIA';
+    src: url('../Fontes/AMORIA.otf') format('opentype'); 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  h1{
+    font-family: 'AMORIA';
+  }
+  
+  
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(-45deg, #07dd3d, #2ba0ff, #721e5d, #2a5298);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #fa0000;
+  }
+
+  @keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+  
+  .nome {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #222;
+    color: #f12602;
+  }
+  
+  .nome h1 {
+    font-size: 36px;
+  }
+  
+  /* Header geral */
+  header {
+    background-color: #333;
+    padding: 10px 0;
+  }
+  
+  .menu-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .navegacao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  /* Links do menu */
+  .links-menu {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .links-menu a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    transition: background-color 0.3s;
+  }
+  
+  .links-menu a:hover {
+    background-color: #555;
+    border-radius: 4px;
+  }
+  
+  /* Dropdown */
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #444;
+    flex-direction: column;
+    min-width: 150px;
+    z-index: 10;
+  }
+  
+  .dropdown:hover .submenu {
+    display: flex;
+  }
+  
+  .submenu a {
+    color: #fff;
+    padding: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .submenu a:hover {
+    background-color: #555;
+  }
+  
+  .animes_comedia h2{
+    background-color: rgba(255, 69, 0, 0.1);
+    padding: 10px 20px;
+    border-left: 5px solid #ff4500;
+    display: inline-block;
+    border-radius: 6px;
+    margin: 50px;
+  }
+
+  .comedia {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0 20px;
+    flex-wrap: wrap; 
+  }
+  
+  .comedia img {
+    width: 100%; 
+    height: auto;
+    border-radius: 8px; 
+    transition: transform 0.3s ease;
+  }
+
+  .comedia img:hover {
+    transform: scale(1.05);
+  }
+  
+  .anime-item {
+    width: 23%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .comedia .anime-item {
+    width: 23%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .comedia span {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif, sans-serif;
+    font-size: 16px;
+    color: #fff;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 5px 80px;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+  }
+  
+  .comedia span:hover {
+    background-color: rgba(255, 69, 0, 0.8);
+    cursor: pointer;
+  } 
+
+  .anime-link {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif, sans-serif;
+    font-size: 16px;
+    color: #fff;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 5px 80px;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .anime-link:hover {
+    background-color: rgba(255, 69, 0, 0.8);
+    cursor: pointer;
+  }
+
+  @keyframes destaque {
+    0% {
+      box-shadow: 0 0 0px orange;
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 0 0 20px 10px orange;
+      transform: scale(1.05);
+    }
+    100% {
+      box-shadow: 0 0 0px orange;
+      transform: scale(1);
+    }
+  }
+  
+  .destaque-anime {
+    animation: destaque 2s ease-in-out;
+    border-radius: 10px;
+    z-index: 10;
+    position: relative;
+  }
+  

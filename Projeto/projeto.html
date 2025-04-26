@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aniglobal</title>
-    <link rel="stylesheet" href="./style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AnimaXone</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -16,76 +16,70 @@
             <a href="#">Sobre</a>
             <a href="#">Serviços</a>
             <a href="#">Contato</a>
-            <button class="botao_login">Login</button>
+            <button class="botao_login" onclick="toggleLogin()">Login</button>
         </nav>
     </header>
 
-    <div class="wrapper">
-        <span class="icon_close"><img src="https://img.icons8.com/?size=100&id=vu5kHwGC4PNb&format=png&color=FFFFFF" alt="Fechar" style="width: 20px; height: 20px;"></span>
+  <div class="wrapper">
+    <span class="icon-close">
+      <ion-icon name="close"></ion-icon>
+    </span>
 
-        <div class="form_box login">
-            <h2>Login</h2>
-            <form action="#">
-                <div class="input_box">
-                    <span class="icon"><img src="https://img.icons8.com/?size=100&id=12623&format=png&color=FD7E14" alt="email icon"></span>
-                    <input type="email" name="email" required>
-                    <label>Email</label>
-                </div>
-
-                <div class="input_box">
-                    <span class="icon"><img src="https://img.icons8.com/?size=100&id=2862&format=png&color=FD7E14" alt="email icon"></span>
-                    <input type="password" name="senha" required>
-                    <label>Senha</label>
-                </div>
-                <div class="remember_forgot">
-                    <label><input type="checkbox">Lembre-me <span class="texto_transparente">texto texto texto texto</span></label>
-                    <a href="#">Esqueceu sua senha?</a>
-                </div>
-                <button type="submit" class="btn">Logar</button>
-                <div class="login_register">
-                    <p>Não tem uma conta? <a href="#" class="register_link">Registrar</a></p>
-                </div>
-            </form>
+    <div class="form-box login">
+      <h2>Login</h2>
+      <form action="#">
+        <div class="input-box">
+          <span class="icon"><ion-icon name="mail"></ion-icon></span>
+          <input type="email" required>
+          <label>Email</label>
         </div>
-
-        <div class="form_box register">
-            <h2>Registro</h2>
-            <form action="#">
-                <div class="input_box">
-                    <span class="icon"><img src="https://img.icons8.com/?size=100&id=7819&format=png&color=FD7E14" alt="email icon"></span>
-                    <input type="text" name="text" required>
-                    <label>Nome</label>
-                </div>
-
-
-
-                <div class="input_box">
-                    <span class="icon"><img src="https://img.icons8.com/?size=100&id=12623&format=png&color=FD7E14" alt="email icon"></span>
-                    <input type="email" name="email" required>
-                    <label>Email</label>
-                </div>
-
-                <div class="input_box">
-                    <span class="icon"><img src="https://img.icons8.com/?size=100&id=2862&format=png&color=FD7E14" alt="email icon"></span>
-                    <input type="password" name="senha" required>
-                    <label>Senha</label>
-                </div>
-                <div class="remember_forgot">
-                    <label><input type="checkbox">Você aceita os Termos & Condições? <span class="texto_transparente">texto texto texto texto</span></label>
-                
-                </div>
-                <button type="submit" class="btn">Registrar</button>
-                <div class="login_register">
-                    <p>Já tem uma conta? <a href="#" class="login_link">Logar</a></p>
-                </div>
-            </form>
+        <div class="input-box">
+          <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+          <input type="password" required>
+          <label>Senha</label>
         </div>
-
+        <div class="remember-forgot">
+          <label><input type="checkbox">Lembre-me!</label>
+          <a href="#">Esqueceu a senha?</a>
+        </div>
+        <button type="submit" class="btn">Logar</button>
+        <div class="login-register">
+          <p>Não tem uma conta? <a href="#" class="register-link">Registrar</a></p>
+        </div>
+      </form>
     </div>
 
-    <script src="style.css"></script>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    
+    <div class="form-box register">
+      <h2>Registro</h2>
+      <form action="#">
+        <div class="input-box">
+          <span class="icon"><ion-icon name="person"></ion-icon></span>
+          <input type="text" required>
+          <label>Usuário</label>
+        </div>
+        <div class="input-box">
+          <span class="icon"><ion-icon name="mail"></ion-icon></span>
+          <input type="email" required>
+          <label>Email</label>
+        </div>
+        <div class="input-box">
+          <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+          <input type="password" required>
+          <label>Senha</label>
+        </div>
+        <div class="remember-forgot">
+          <label><input type="checkbox">Aceito os Termos & Condições</label>
+        </div>
+        <button type="submit" class="btn">Registrar</button>
+        <div class="login-register">
+          <p>Já tem uma conta? <a href="#" class="login-link">Logar</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

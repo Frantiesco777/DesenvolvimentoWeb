@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="style_2.css">
+    <title>AnimaXone</title>
+</head>
+<body>
+    
+    <div class="nome">
+      <h1>AnimaXone</h1>
+    </div>
+
+    <header>
+      <div class="menu-container">
+        <nav class="navegacao">
+          <div class="links-menu">
+            <button id="logoutBtn">Logout</button>
+            <a href="site.html">Home</a>
+            <a href="./generos/lancamentos.html">Lançamentos</a>
+    
+            <div class="dropdown">
+              <a href="#">Gênero</a>
+              <div class="submenu">
+                <a href="./generos/shounen.html">Shounen</a>
+                <a href="./generos/comedia.html">Comédia</a>
+                <a href="./generos/romance.html">Romance</a>
+                <a href="./generos/seinein.html">Seinen</a>
+                <a href="./generos/mecha.html">Mecha</a>
+                <a href="./generos/terror.html">Terror</a>
+                <a href="./generos/isekai.html">Isekai</a>
+              </div>
+            </div>
+          </div>
+    
+          <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Buscar anime...">
+            <button onclick="buscarAnime()">🔍</button>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+
+    <div>
+      <nav class="assistindo">
+        <h2>VOCÊ ESTA ASSISTINDO</h2>
+      </nav>
+      <div class="animes_assistindo">
+        <div class="anime-item">
+          <img src="./imagens/Dr_stone.jpg" alt="Imagem 1">
+          <span>Dr. Stone</span>
+        </div>
+        <div class="anime-item">
+          <img src="./imagens/Kill_la_Kill.jpg" alt="Imagem 2">
+          <span>Kill la Kill</span>
+        </div>
+        <div class="anime-item">
+          <img src="./imagens/dan_da_dan.jpg" alt="Imagem 3">
+          <span>Dan Da Dan</span>
+        </div>
+        <div class="anime-item">
+          <img src="./imagens/chainsaw_man.jpg" alt="Imagem 4">
+          <span>Chainsaw man</span>
+        </div>
+      </div>
+      
+    </div>
+
+
+    <nav>
+      <h2 class="titulo-sessao">Animes em Breve</h2>
+    </nav>
+    <div class="animes-em-breve">
+      <div class="anime-item">
+        <img src="./imagens/sakuna.jpg" alt="Anime 1">
+        <span>Sakuna</span>
+      </div>
+      <div class="anime-item">
+        <img src="./imagens/kimi_to_boku.jpg" alt="Anime 2">
+        <span>Kimi to Boku</span>
+      </div>
+      <div class="anime-item">
+        <img src="./imagens/nigejouzu.jpg" alt="Anime 3">
+        <span>Nigejouzu</span>
+      </div>
+      <div class="anime-item">
+        <img src="./imagens/mayonaka_punch.jpg" alt="Anime 4">
+        <span>Mayonaka Punch</span>
+      </div>
+    </div>
+
+<script src="script_2.js"></script>
+
+</body>
+</html>
