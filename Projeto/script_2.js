@@ -13,7 +13,20 @@ function buscarAnime() {
       } else if (termo.includes("iruma") || termo.includes("kaguya") || termo.includes("nagatoro") || termo.includes("osomatsu")
       || termo.includes("usurei yatsura") || termo.includes("gintama") || termo.includes("konosuba") || termo.includes("prison")) {
         window.location.href = `./generos/comedia.html?anime=${termo}`;
-      }
+      
+      } else if (termo.includes("darling") || termo.includes("sono bisque doll") || termo.includes("komi") || termo.includes("nisekoi")
+        || termo.includes("bunny girl senpai") || termo.includes("the ancient magus bride") || termo.includes("call of the night") || termo.includes("jitsu wa watashi wa")) {
+          window.location.href = `./generos/romance.html?anime=${termo}`;
+      
+      } else if (termo.includes("attack on titan") || termo.includes("berserk") || termo.includes("hellsing") || termo.includes("monster")
+        || termo.includes("cowboy bebop") || termo.includes("devilman") || termo.includes("death note") || termo.includes("erased")) {
+          window.location.href = `./generos/seinein.html?anime=${termo}`;
+      
+      } else if (termo.includes("evangelion") || termo.includes("code geass") || termo.includes("mecha-ude") || termo.includes("gurren lagann")
+        || termo.includes("mobile suit") || termo.includes("cannon busters") || termo.includes("valvrave") || termo.includes("ssss")) {
+          window.location.href = `./generos/mecha.html?anime=${termo}`;
+      
+      } 
     }
 
     const logoutBtn = document.getElementById('logoutBtn');
