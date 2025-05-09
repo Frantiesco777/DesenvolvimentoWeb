@@ -26,6 +26,14 @@ function buscarAnime() {
         || termo.includes("mobile suit") || termo.includes("cannon busters") || termo.includes("valvrave") || termo.includes("ssss")) {
           window.location.href = `./generos/mecha.html?anime=${termo}`;
       
+      } else if (termo.includes("shiki") || termo.includes("another") || termo.includes("uzumaki") || termo.includes("blood c")
+        || termo.includes("boogiepop") || termo.includes("ghost hunt") || termo.includes("mieruko") || termo.includes("corpse party")) {
+          window.location.href = `./generos/terror.html?anime=${termo}`;
+      
+      } else if (termo.includes("digimon 4") || termo.includes("so i'm a spider") || termo.includes("re:zero") || termo.includes("overlord")
+        || termo.includes("no game no life") || termo.includes("slime") || termo.includes("mushoku tensei") || termo.includes("shield hero")) {
+          window.location.href = `./generos/isekai.html?anime=${termo}`;
+      
       } 
     }
 

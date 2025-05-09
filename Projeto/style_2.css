@@ -194,59 +194,7 @@
     flex-direction: column;
     align-items: center;
   }
-
-  .animes_assistindo .anime-item {
-    width: 23%;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .animes_assistindo span {
-    display: block;
-    font-family: Arial, Helvetica, sans-serif, sans-serif;
-    font-size: 16px;
-    color: #fff;
-    margin-top: 20px;
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 5px 80px;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s ease;
-  }
-  
-  .animes_assistindo span:hover {
-    background-color: rgba(255, 69, 0, 0.8);
-    cursor: pointer;
-  }
-  
-  .animes-em-breve .anime-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-  }
-  
-  .animes-em-breve .anime-item img:hover {
-    transform: scale(1.05);
-  }
-  
-  .animes-em-breve .anime-item span {
-    display: block;
-    font-family: Arial, Helvetica, sans-serif, sans-serif;
-    font-size: 16px;
-    color: #fff;
-    margin-top: 20px;
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 5px 80px;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s ease;
-  }
-  
-  .animes-em-breve .anime-item span:hover {
-    background-color: rgba(255, 69, 0, 0.8);
-    cursor: pointer;
-  }     
+      
 
   #logoutBtn {
     background: transparent;
@@ -266,3 +214,156 @@
     color: #FF4500; /* Cor de fundo de hover, mesma do estilo do site */
   }
   
+  .animes_assistindo h2{
+    background-color: rgba(255, 69, 0, 0.1);
+    padding: 10px 20px;
+    border-left: 5px solid #ff4500;
+    display: inline-block;
+    border-radius: 6px;
+    margin: 50px;
+  }
+
+  .assistindo {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0 20px;
+    flex-wrap: wrap; 
+  }
+  
+  .assistindo img {
+    width: 100%; 
+    height: auto;
+    border-radius: 8px; 
+    transition: transform 0.3s ease;
+  }
+
+  .assistindo img:hover {
+    transform: scale(1.05);
+  }
+  
+  .anime-item {
+    width: 23%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .assistindo .anime-item {
+    width: 23%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .assistindo span {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif, sans-serif;
+    font-size: 16px;
+    color: #fff;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 5px 80px;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+  }
+  
+  .assistindo span:hover {
+    background-color: rgba(255, 69, 0, 0.8);
+    cursor: pointer;
+  } 
+
+
+
+  .animes-em-breve {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0 20px;
+    flex-wrap: wrap; 
+  }
+  
+  .animes-em-breve img {
+    width: 100%; 
+    height: auto;
+    border-radius: 8px; 
+    transition: transform 0.3s ease;
+  }
+
+  .animes-em-breve img:hover {
+    transform: scale(1.05);
+  }
+  
+  .anime-item {
+    width: 23%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .animes-em-breve .anime-item {
+    width: 23%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .animes-em-breve span {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif, sans-serif;
+    font-size: 16px;
+    color: #fff;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 5px 80px;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+  }
+  
+  .animes-em-breve span:hover {
+    background-color: rgba(255, 69, 0, 0.8);
+    cursor: pointer;
+  } 
+
+
+
+  .anime-link {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif, sans-serif;
+    font-size: 16px;
+    color: #fff;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 5px 80px;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .anime-link:hover {
+    background-color: rgba(255, 69, 0, 0.8);
+    cursor: pointer;
+  }
+
+  @keyframes destaque {
+    0% {
+      box-shadow: 0 0 0px orange;
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 0 0 20px 10px orange;
+      transform: scale(1.05);
+    }
+    100% {
+      box-shadow: 0 0 0px orange;
+      transform: scale(1);
+    }
+  }
+  
+  .destaque-anime {
+    animation: destaque 2s ease-in-out;
+    border-radius: 10px;
+    z-index: 10;
+    position: relative;
+  }
