@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>AnimaXone - Lançamentos</title>
   <link rel="stylesheet" href="../site.html">
+  <link rel="stylesheet" href="./../style_2.css">
   <link rel="stylesheet" href="style_lancamento.css">
 </head>
 <body>
@@ -12,29 +13,9 @@
     <h1>AnimaXone</h1>
   </div>
 
-  <header>
-    <div class="menu-container">
-      <nav class="navegacao">
-        <div class="links-menu">
-          
-          <a href="../site.html">Home</a>
-          <a href="./lancamentos.html">Lançamentos</a>
-  
-          <div class="dropdown">
-            <a href="#">Gênero</a>
-            <div class="submenu">
-              <a href="./shounen.html">Shounen</a>
-              <a href="./comedia.html">Comédia</a>
-              <a href="./romance.html">Romance</a>
-              <a href="./seinein.html">Seinen</a>
-              <a href="./mecha.html">Mecha</a>
-              <a href="./terror.html">Terror</a>
-              <a href="./isekai.html">Isekai</a>
-            </div>
-          </div>
-        </div>
-    <div>
-  </header>
+  <?php
+  include("./../includes/menu.php")
+  ?>
     
     <div>
       <nav class="animes_lancamentos">
