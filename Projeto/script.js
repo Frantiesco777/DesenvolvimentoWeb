@@ -42,7 +42,7 @@ btnPopup.addEventListener('click', () => {
     alert("Registrado com sucesso!");
   
     // Redireciona para uma "nova página" (ex: site de filmes)
-    window.location.href = "site.html";
+    window.location.href = "site.php";
   });
 
 
@@ -61,7 +61,7 @@ loginForm.addEventListener('submit', (e) => {
 
   if (storedUser && storedUser.email === email && storedUser.password === password) {
     alert("Login bem-sucedido!");
-    window.location.href = "site.html";
+    window.location.href = "site.php";
   } else {
     alert("Email ou senha incorretos!");
   }

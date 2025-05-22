@@ -194,25 +194,7 @@
     flex-direction: column;
     align-items: center;
   }
-      
-
-  #logoutBtn {
-    background: transparent;
-    border: 2px solid white;
-    color: white;
-    font-size: 1.1em;
-    font-weight: 500;
-    padding: 10px 20px;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-left: 30px; /* Espaço entre o botão e outros links */
-    transition: background 0.3s, color 0.3s;
-  }
-  
-  #logoutBtn:hover {
-    background: white;
-    color: #FF4500; /* Cor de fundo de hover, mesma do estilo do site */
-  }
+    
   
   .animes_assistindo h2{
     background-color: rgba(255, 69, 0, 0.1);
@@ -367,3 +349,74 @@
     z-index: 10;
     position: relative;
   }
+
+  /* User profile in menu */
+.user-profile {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  outline: none;
+}
+
+.user-image {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ff4500;
+}
+
+.user-profile .submenu.user-submenu {
+  display: none;
+  position: absolute;
+  top: 120%;
+  right: 0;
+  background-color: #444;
+  padding: 10px 20px;
+  border-radius: 8px;
+  min-width: 180px;
+  z-index: 20;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.user-profile:hover .user-submenu,
+.user-profile:focus-within .user-submenu {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-submenu p {
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.user-submenu #logoutBtn {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  font-size: 1.1em;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 30px; /* Espaço entre o botão e outros links */
+  transition: background 0.3s, color 0.3s;
+}
+
+.user-submenu #logoutBtn:hover {
+  background: white;
+  color: #FF4500;
+}
+
