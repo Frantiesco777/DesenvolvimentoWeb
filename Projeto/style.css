@@ -102,7 +102,7 @@ header {
   margin-top: 50px;
 }
 
-.wrapper.active-popup{
+.wrapper.active-popup {
   transform: scale(1);
 }
 
@@ -256,4 +256,23 @@ header {
 
 .login-register p a:hover {
   text-decoration: underline;
+}
+
+/* Estilo para botão Logout menor abaixo de editar foto de perfil */
+.btn-logout {
+  width: 120px;
+  height: 35px;
+  background: #FF4500;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 500;
+  font-size: 0.9em;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background 0.3s ease;
+}
+
+.btn-logout:hover {
+  background: #e03e00;
 }

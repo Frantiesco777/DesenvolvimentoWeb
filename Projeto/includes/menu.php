@@ -12,6 +12,7 @@
           <div class="submenu user-submenu">
             <p id="userEmail">email@usuario.com</p>
             <button id="logoutBtn">Logout</button>
+            <button id="editProfileBtn">Editar perfil</button>
           </div>
         </div>
 
@@ -37,5 +38,26 @@
         <button onclick="buscarAnime()">🔍</button>
       </div>
     </nav>
+  </div>
+
+  <!-- Janela de edição de perfil -->
+  <div id="editProfileModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close" id="closeModalBtn">&times;</span>
+      <h2>Editar Perfil</h2>
+      <form id="editProfileForm">
+        <label for="editName">Nome:</label>
+        <input type="text" id="editName" name="editName" required><br><br>
+
+        <label for="editEmail">Email:</label>
+        <input type="email" id="editEmail" name="editEmail" required><br><br>
+
+        <label for="editImage">Imagem de Perfil:</label>
+        <input type="file" id="editImage" name="editImage" accept="image/*"><br><br>
+        <img id="profileImagePreview" src="" alt="Prévia da imagem" style="max-width: 100px;"><br>
+
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
   </div>
 </header>

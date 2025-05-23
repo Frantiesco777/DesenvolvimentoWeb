@@ -18,38 +18,30 @@ iconClose.addEventListener('click', () => {
 });
 
 btnPopup.addEventListener('click', () => {
-    wrapper.classList.add('active-popup');
-  });
+  wrapper.classList.add('active-popup');
+});
 
+registerForm.addEventListener('submit', (e) => {
+  e.preventDefault(); // impede que a página recarregue
 
+  const name = registerForm.querySelector('input[type="text"]').value;
+  const email = registerForm.querySelector('input[type="email"]').value;
+  const password = registerForm.querySelector('input[type="password"]').value;
 
-  
+  // Armazena os dados no localStorage com o campo "name"
+  localStorage.setItem('user', JSON.stringify({
+    name,
+    email,
+    password
+  }));
 
-  registerForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // impede que a página recarregue
-  
-    const username = registerForm.querySelector('input[type="text"]').value;
-    const email = registerForm.querySelector('input[type="email"]').value;
-    const password = registerForm.querySelector('input[type="password"]').value;
-  
-    // Simula o armazenamento
-    localStorage.setItem('user', JSON.stringify({
-      username,
-      email,
-      password
-    }));
-  
-    alert("Registrado com sucesso!");
-  
-    // Redireciona para uma "nova página" (ex: site de filmes)
-    window.location.href = "site.php";
-  });
+  alert("Registrado com sucesso!");
 
+  // Redireciona para o site principal após registro
+  window.location.href = "site.php";
+});
 
-
-
-
-  const loginForm = document.querySelector('.form-box.login form');
+const loginForm = document.querySelector('.form-box.login form');
 
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
