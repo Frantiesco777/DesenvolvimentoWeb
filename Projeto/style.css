@@ -98,7 +98,7 @@ header {
   align-items: center;
   overflow: hidden;
   transform: scale(0);
-  transition: transform .5s ease, height 0.2s ease;
+  transition: transform 0.5s ease, height 0.2s ease;
   margin-top: 50px;
 }
 
@@ -113,36 +113,64 @@ header {
 .wrapper .form-box {
   width: 100%;
   padding: 40px;
+  position: relative;
+  transition: transform 0.18s ease;
 }
 
+/* Login Form */
 .wrapper .form-box.login {
-  transition: transform 0.18s ease;
   transform: translateX(0);
 }
 
+/* Quando trocar para registro, login sai para esquerda */
 .wrapper.active .form-box.login {
   transition: none;
   transform: translateX(-400px);
 }
 
+/* Registro Form */
 .wrapper .form-box.register {
   position: absolute;
   transform: translateX(400px);
   transition: none;
 }
 
+/* Quando trocar para registro, registro aparece */
 .wrapper.active .form-box.register {
   transition: transform 0.18s ease;
   transform: translateX(0);
 }
 
+/* Redefinir Senha Form */
+.wrapper .form-box.reset-password {
+  position: absolute;
+  width: 100%;
+  padding: 40px;
+  transform: translateX(400px);
+  transition: transform 0.18s ease;
+}
+
+/* Quando estiver na tela de reset */
+.wrapper.active-reset .form-box.login {
+  transform: translateX(-400px);
+}
+
+.wrapper.active-reset .form-box.register {
+  transform: translateX(-400px);
+}
+
+.wrapper.active-reset .form-box.reset-password {
+  transform: translateX(0);
+}
+
+/* Close icon */
 .wrapper .icon-close {
   position: absolute;
   top: 0;
   right: 0;
   width: 45px;
   height: 45px;
-  background: #FF4500;
+  background: #ff4500;
   font-size: 2em;
   color: white;
   border-bottom-left-radius: 20px;
@@ -153,12 +181,14 @@ header {
   cursor: pointer;
 }
 
+/* Titles */
 .form-box h2 {
   font-size: 2em;
   color: orange;
   text-align: center;
 }
 
+/* Input box */
 .input-box {
   position: relative;
   width: 100%;
@@ -204,6 +234,7 @@ header {
   line-height: 57px;
 }
 
+/* Remember me and forgot link */
 .remember-forgot {
   font-size: 0.9em;
   color: orange;
@@ -214,23 +245,25 @@ header {
 }
 
 .remember-forgot label input {
-  accent-color: #FF4500;
+  accent-color: #ff4500;
   margin-right: 3px;
 }
 
 .remember-forgot a {
   color: #0ea3df;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .remember-forgot a:hover {
   text-decoration: underline;
 }
 
+/* Buttons */
 .btn {
   width: 100%;
   height: 45px;
-  background: #FF4500;
+  background: #ff4500;
   border: none;
   outline: none;
   border-radius: 6px;
@@ -240,6 +273,7 @@ header {
   font-weight: 500;
 }
 
+/* Login/Register toggle text */
 .login-register {
   font-size: 0.9em;
   color: orange;
@@ -252,6 +286,7 @@ header {
   color: #0ea3df;
   text-decoration: none;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .login-register p a:hover {
@@ -262,7 +297,7 @@ header {
 .btn-logout {
   width: 120px;
   height: 35px;
-  background: #FF4500;
+  background: #ff4500;
   border: none;
   border-radius: 6px;
   color: white;
