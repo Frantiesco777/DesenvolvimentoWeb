@@ -11,8 +11,8 @@
           </div>
           <div class="submenu user-submenu">
             <p id="userEmail">email@usuario.com</p>
-            <button id="logoutBtn">Logout</button>
-            <button id="editProfileBtn">Editar perfil</button>
+            <button id="logoutBtn" class="btn-logout">Logout</button>
+            <button id="editProfileBtn" class="btn-edit-profile">Editar perfil</button>
           </div>
         </div>
 
@@ -47,17 +47,20 @@
       <h2>Editar Perfil</h2>
       <form id="editProfileForm">
         <label for="editName">Nome:</label>
-        <input type="text" id="editName" name="editName" required><br><br>
+        <input type="text" id="editName" name="editName" required>
 
         <label for="editEmail">Email:</label>
-        <input type="email" id="editEmail" name="editEmail" required><br><br>
+        <input type="email" id="editEmail" name="editEmail" required>
 
         <label for="editImage">Imagem de Perfil:</label>
-        <input type="file" id="editImage" name="editImage" accept="image/*"><br><br>
-        <img id="profileImagePreview" src="" alt="Prévia da imagem" style="max-width: 100px;"><br>
+        <input type="file" id="editImage" name="editImage" accept="image/*">
+        <img id="profileImagePreview" src="" alt="Prévia da imagem" style="max-width: 120px; border-radius: 50%; margin-top: 10px; display: block;">
 
-        <button type="submit">Salvar</button>
+        <button type="submit" class="btn-save-profile">Salvar</button>
       </form>
     </div>
   </div>
+
+
+
 </header>

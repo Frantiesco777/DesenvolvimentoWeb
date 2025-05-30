@@ -6,136 +6,98 @@ function buscarAnime() {
     termo.includes("one piece") || termo.includes("chainsaw ") || termo.includes("kimetsu") || termo.includes("edens zero") ||
     termo.includes("naruto") || termo.includes("black clover") || termo.includes("dragon ball z") || termo.includes("one punch")
   ) {
-    window.location.href = `./generos/shounen.php?anime=${termo}`;
+    window.location.href = `./generos/shounen.php?anime=${encodeURIComponent(termo)}`;
   } else if (
     termo.includes("devil may cry") || termo.includes("lazarus") || termo.includes("to be hero x") || termo.includes("kijun") ||
     termo.includes("tougen anki") || termo.includes("gachiakuta") || termo.includes("shangri la") || termo.includes("zenchu")
   ) {
-    window.location.href = `./generos/lancamentos.php?anime=${termo}`;
+    window.location.href = `./generos/lancamentos.php?anime=${encodeURIComponent(termo)}`;
   } else if (
     termo.includes("iruma") || termo.includes("kaguya") || termo.includes("nagatoro") || termo.includes("osomatsu") ||
     termo.includes("usurei yatsura") || termo.includes("gintama") || termo.includes("konosuba") || termo.includes("prison")
   ) {
-    window.location.href = `./generos/comedia.php?anime=${termo}`;
+    window.location.href = `./generos/comedia.php?anime=${encodeURIComponent(termo)}`;
   } else if (
     termo.includes("darling") || termo.includes("sono bisque doll") || termo.includes("komi") || termo.includes("nisekoi") ||
     termo.includes("bunny girl senpai") || termo.includes("the ancient magus bride") || termo.includes("call of the night") || termo.includes("jitsu wa watashi wa")
   ) {
-    window.location.href = `./generos/romance.php?anime=${termo}`;
+    window.location.href = `./generos/romance.php?anime=${encodeURIComponent(termo)}`;
   } else if (
     termo.includes("attack on titan") || termo.includes("berserk") || termo.includes("hellsing") || termo.includes("monster") ||
     termo.includes("cowboy bebop") || termo.includes("devilman") || termo.includes("death note") || termo.includes("erased")
   ) {
-    window.location.href = `./generos/seinein.php?anime=${termo}`;
+    window.location.href = `./generos/seinein.php?anime=${encodeURIComponent(termo)}`;
   } else if (
     termo.includes("evangelion") || termo.includes("code geass") || termo.includes("mecha-ude") || termo.includes("gurren lagann") ||
     termo.includes("mobile suit") || termo.includes("cannon busters") || termo.includes("valvrave") || termo.includes("ssss")
   ) {
-    window.location.href = `./generos/mecha.php?anime=${termo}`;
+    window.location.href = `./generos/mecha.php?anime=${encodeURIComponent(termo)}`;
   } else if (
     termo.includes("shiki") || termo.includes("another") || termo.includes("uzumaki") || termo.includes("blood c") ||
     termo.includes("boogiepop") || termo.includes("ghost hunt") || termo.includes("mieruko") || termo.includes("corpse party")
   ) {
-    window.location.href = `./generos/terror.php?anime=${termo}`;
+    window.location.href = `./generos/terror.php?anime=${encodeURIComponent(termo)}`;
   } else if (
     termo.includes("digimon 4") || termo.includes("so i'm a spider") || termo.includes("re:zero") || termo.includes("overlord") ||
     termo.includes("no game no life") || termo.includes("slime") || termo.includes("mushoku tensei") || termo.includes("shield hero")
   ) {
-    window.location.href = `./generos/isekai.php?anime=${termo}`;
+    window.location.href = `./generos/isekai.php?anime=${encodeURIComponent(termo)}`;
   }
 }
 
-// Função para carregar os dados do usuário e preencher no menu
-function carregarDadosUsuario() {
-  const storedUser = JSON.parse(localStorage.getItem('user'));
+// --- INÍCIO da parte do perfil ---
 
-  if (!storedUser) {
-    // Se não estiver logado, redireciona para a página de login
-    window.location.href = 'index.php';
-    return;
+let cropper;
+const LOCAL_STORAGE_KEY = 'user';
+
+// Função para criar um novo usuário com imagem padrão
+function criarUsuarioPadrao(name, email, password) {
+  const novoUsuario = {
+    name: name,
+    email: email,
+    password: password,
+    profileImage: "./imagens/usuario_padrao.png"  // imagem padrão para novos usuários
+  };
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(novoUsuario));
+  return novoUsuario;
+}
+
+function carregarDadosUsuario() {
+  const storedUserStr = localStorage.getItem(LOCAL_STORAGE_KEY);
+  if (!storedUserStr) {
+    window.location.href = 'index.php'; // Redireciona se não estiver logado
+    return null;
   }
 
-  // Pega os elementos do DOM do menu
+  const storedUser = JSON.parse(storedUserStr);
+
+  // Atualiza menu com dados do usuário
   const userNameElem = document.getElementById('userName');
   const userEmailElem = document.getElementById('userEmail');
   const userImageElem = document.getElementById('userImage');
 
-  // Preenche os dados do usuário no menu
-  userNameElem.textContent = storedUser.name || "Usuário";
-  userEmailElem.textContent = storedUser.email || "";
-  userImageElem.src = storedUser.profileImage || "./imagens/perfil.png";
-  userImageElem.alt = `Foto de perfil de ${storedUser.name || "Usuário"}`;
+  if (userNameElem) userNameElem.textContent = storedUser.name || "Usuário";
+  if (userEmailElem) userEmailElem.textContent = storedUser.email || "";
+  if (userImageElem) {
+    userImageElem.src = storedUser.profileImage || "./imagens/usuario_padrao.jpg";
+    userImageElem.alt = `Foto de perfil de ${storedUser.name || "Usuário"}`;
+  }
+
+  return storedUser;
 }
 
-// Função para configurar o botão de logout
 function configurarLogout() {
   const logoutBtn = document.getElementById('logoutBtn');
   if (!logoutBtn) return;
 
   logoutBtn.addEventListener('click', () => {
-    // Remove os dados do usuário e redireciona para a página de login
-    localStorage.removeItem('user');
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
     window.location.href = 'index.php';
   });
 }
 
-// Função para carregar foto de perfil na edição e menu
-function carregarFotoPerfil() {
-  const storedUser = JSON.parse(localStorage.getItem('user'));
-  if (storedUser && storedUser.profileImage) {
-    const userImageElem = document.getElementById('userImage');
-    if(userImageElem){
-      userImageElem.src = storedUser.profileImage;
-      userImageElem.alt = `Foto de perfil de ${storedUser.name || "Usuário"}`;
-    }
-
-    const profileImagePreview = document.getElementById('profileImagePreview');
-    if (profileImagePreview) {
-      profileImagePreview.src = storedUser.profileImage;
-    }
-  }
-}
-
-// Evento para mostrar preview da imagem selecionada no input file (edição perfil)
-const profileImageInput = document.getElementById('profileImageInput');
-if (profileImageInput) {
-  profileImageInput.addEventListener('change', function() {
-    const file = this.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const profileImagePreview = document.getElementById('profileImagePreview');
-      if(profileImagePreview) profileImagePreview.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-}
-
-// Evento para salvar a imagem no localStorage e atualizar o menu (edição perfil)
-const saveProfileImageBtn = document.getElementById('saveProfileImageBtn');
-if (saveProfileImageBtn) {
-  saveProfileImageBtn.addEventListener('click', () => {
-    const profileImagePreview = document.getElementById('profileImagePreview');
-    if(!profileImagePreview) return;
-
-    const newImage = profileImagePreview.src;
-
-    let storedUser = JSON.parse(localStorage.getItem('user')) || {};
-    storedUser.profileImage = newImage;
-    localStorage.setItem('user', JSON.stringify(storedUser));
-
-    // Atualiza a foto no menu imediatamente
-    const userImageElem = document.getElementById('userImage');
-    if(userImageElem) userImageElem.src = newImage;
-
-    alert('Foto de perfil atualizada com sucesso!');
-  });
-}
-
-// Código para abrir/fechar modal de edição e salvar dados atualizados do perfil
 document.addEventListener('DOMContentLoaded', () => {
-  const storedUser = JSON.parse(localStorage.getItem('user'));
+  let storedUser = carregarDadosUsuario();
   if (!storedUser) return;
 
   const modal = document.getElementById('editProfileModal');
@@ -151,59 +113,119 @@ document.addEventListener('DOMContentLoaded', () => {
   const userEmailDisplay = document.getElementById('userEmail');
   const userImageDisplay = document.getElementById('userImage');
 
+  // Abrir modal e preencher com dados atuais
   if(openBtn){
     openBtn.addEventListener('click', () => {
       nameInput.value = storedUser.name || "";
       emailInput.value = storedUser.email || "";
-      preview.src = storedUser.profileImage || "./imagens/perfil.png";
+      preview.src = storedUser.profileImage || "./imagens/usuario_padrao.jpg";
+
+      // Se já tiver cropper ativo, destrói
+      if (cropper) {
+        cropper.destroy();
+        cropper = null;
+      }
+      // Inicializa cropper no preview
+      cropper = new Cropper(preview, {
+        aspectRatio: 1,
+        viewMode: 1,
+        autoCropArea: 1,
+        movable: true,
+        zoomable: true,
+        rotatable: false,
+        scalable: false,
+        background: false,
+      });
+
       modal.style.display = "flex";
     });
   }
 
+  // Fechar modal
   if(closeBtn){
     closeBtn.addEventListener('click', () => {
       modal.style.display = "none";
+      if (cropper) {
+        cropper.destroy();
+        cropper = null;
+      }
+      preview.src = "";
+      imageInput.value = "";
     });
   }
 
+  // Trocar imagem no input e atualizar cropper
   if(imageInput){
     imageInput.addEventListener('change', () => {
       const file = imageInput.files[0];
       if (file) {
-        const reader = new FileReader();
-        reader.onload = e => {
-          preview.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
+        const url = URL.createObjectURL(file);
+        preview.src = url;
+
+        if (cropper) {
+          cropper.destroy();
+        }
+
+        cropper = new Cropper(preview, {
+          aspectRatio: 1,
+          viewMode: 1,
+          autoCropArea: 1,
+          movable: true,
+          zoomable: true,
+          rotatable: false,
+          scalable: false,
+          background: false,
+        });
       }
     });
   }
 
+  // Salvar dados do perfil editado
   if(form){
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
+      let croppedImage = preview.src; // fallback
+
+      if (cropper) {
+        croppedImage = cropper.getCroppedCanvas({
+          width: 150,
+          height: 150,
+          fillColor: '#fff'
+        }).toDataURL('image/png');
+      }
+
       const updatedUser = {
-        name: nameInput.value,
-        email: emailInput.value,
-        password: storedUser.password, // mantém a senha original
-        profileImage: preview.src
+        name: nameInput.value.trim(),
+        email: emailInput.value.trim(),
+        password: storedUser.password || "", // mantém a senha antiga
+        profileImage: croppedImage
       };
 
-      localStorage.setItem('user', JSON.stringify(updatedUser));
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedUser));
       alert("Perfil atualizado com sucesso!");
 
-      // Atualiza visual no menu
+      // Atualiza menu
       if (userNameDisplay) userNameDisplay.textContent = updatedUser.name;
       if (userEmailDisplay) userEmailDisplay.textContent = updatedUser.email;
-      if (userImageDisplay) userImageDisplay.src = updatedUser.profileImage;
+      if (userImageDisplay) {
+        userImageDisplay.src = updatedUser.profileImage;
+        userImageDisplay.alt = `Foto de perfil de ${updatedUser.name}`;
+      }
 
       modal.style.display = "none";
+
+      // Destrói cropper após salvar
+      if (cropper) {
+        cropper.destroy();
+        cropper = null;
+      }
+
+      // Limpa preview e input
+      preview.src = "";
+      imageInput.value = "";
     });
   }
 
-  // Chama funções para carregar dados e configurar logout
-  carregarDadosUsuario();
   configurarLogout();
-  carregarFotoPerfil();
 });
