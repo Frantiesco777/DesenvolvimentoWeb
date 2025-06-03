@@ -28,7 +28,7 @@
     <div class="animes_assistindo">
       <div class="anime-item">
         <img src="./imagens/Dr_stone.jpg" alt="Imagem 1" data-anime="Dr. Stone" />
-        <a href="./generos/Páginas/Dr. Stone/dr_stone.html" class="anime-link">Dr. Stone</a>
+        <a href="./generos/Páginas/Dr. Stone/dr_stone.php" class="anime-link">Dr. Stone</a>
       </div>
       <div class="anime-item">
         <img src="./imagens/Kill_la_Kill.jpg" alt="Imagem 2" data-anime="Kill la Kill" />

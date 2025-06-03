@@ -26,15 +26,15 @@
     <!-- Login -->
     <div class="form-box login">
       <h2>Login</h2>
-      <form action="#">
+      <form action="login.php" method="POST">
         <div class="input-box">
           <span class="icon"><ion-icon name="mail"></ion-icon></span>
-          <input type="email" required />
+          <input type="email" name="email" required />
           <label>Email</label>
         </div>
         <div class="input-box">
           <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-          <input type="password" required />
+          <input type="password" name="senha" required />
           <label>Senha</label>
         </div>
         <div class="remember-forgot">
@@ -54,24 +54,24 @@
     <!-- Registro -->
     <div class="form-box register">
       <h2>Registro</h2>
-      <form action="#">
+      <form action="registro.php" method="POST">
         <div class="input-box">
           <span class="icon"><ion-icon name="person"></ion-icon></span>
-          <input type="text" required />
+          <input type="text" name="nome" required />
           <label>Usuário</label>
         </div>
         <div class="input-box">
           <span class="icon"><ion-icon name="mail"></ion-icon></span>
-          <input type="email" required />
+          <input type="email" name="email" required />
           <label>Email</label>
         </div>
         <div class="input-box">
           <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-          <input type="password" required />
+          <input type="password" name="senha" required />
           <label>Senha</label>
         </div>
         <div class="remember-forgot">
-          <label><input type="checkbox" />Aceito os Termos &amp; Condições</label>
+          <label><input type="checkbox" required />Aceito os Termos &amp; Condições</label>
         </div>
         <button type="submit" class="btn">Registrar</button>
         <div class="login-register">
@@ -85,27 +85,31 @@
 
     <!-- Redefinir senha -->
     <div class="form-box reset-password">
-  <h2>Redefinir Senha</h2>
-  <form>
-    <!-- Direto para nova senha e repetir senha, sem etapa extra -->
-    <div class="input-box">
-      <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-      <input type="password" name="new-password" required />
-      <label>Nova senha</label>
+      <h2>Redefinir Senha</h2>
+      <form action="redefinir_senha.php" method="POST">
+        <div class="input-box">
+          <span class="icon"><ion-icon name="mail"></ion-icon></span>
+          <input type="email" name="email" required />
+          <label>Email</label>
+        </div>
+        <div class="input-box">
+          <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+          <input type="password" name="nova_senha" required />
+          <label>Nova senha</label>
+        </div>
+        <div class="input-box">
+          <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+          <input type="password" name="repetir_senha" required />
+          <label>Repita a nova senha</label>
+        </div>
+        <button type="submit" class="btn">Redefinir senha</button>
+      </form>
+      <div class="login-register">
+        <p>
+          <a href="#" class="back-to-login">Voltar para Login</a>
+        </p>
+      </div>
     </div>
-    <div class="input-box">
-      <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-      <input type="password" name="repeat-password" required />
-      <label>Repita a nova senha</label>
-    </div>
-    <button type="submit" class="btn">Redefinir senha</button>
-  </form>
-  <div class="login-register">
-    <p>
-      <a href="#" class="back-to-login">Voltar para Login</a>
-    </p>
-  </div>
-</div>
   </div>
 
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

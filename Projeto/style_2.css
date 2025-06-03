@@ -341,110 +341,143 @@ header {
     left: 0; top: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0,0,0,0.7);
     backdrop-filter: blur(6px);
-    display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
 }
 
 .modal-content {
-    background: linear-gradient(135deg, #1e2a38, #16222a);
-    border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-    padding: 30px 40px;
-    width: 100%;
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
     max-width: 450px;
-    color: #e0e6f1;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 90%;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.25);
     position: relative;
     text-align: center;
-    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.modal-content h2 {
+.modal-content h3 {
     margin-bottom: 25px;
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    color: #ff6a00;
-    text-shadow: 0 0 10px #ff6a00;
+    color: #ff4500;
+    font-family: 'AMORIA', cursive;
 }
 
 .modal-content label {
     display: block;
     text-align: left;
-    margin: 12px 0 6px;
+    margin-bottom: 6px;
     font-weight: 600;
-    font-size: 1rem;
-    color: #a0aec0;
+    color: #333;
+    font-size: 15px;
 }
 
 .modal-content input[type="text"],
 .modal-content input[type="email"],
 .modal-content input[type="file"] {
     width: 100%;
-    padding: 10px 15px;
+    padding: 10px;
+    margin-bottom: 18px;
     border-radius: 8px;
-    border: none;
-    background: #2c3e50;
-    color: #e0e6f1;
-    font-size: 1rem;
-    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.1);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    border: 1.5px solid #ccc;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    outline: none;
+    transition: border-color 0.3s ease;
 }
 
 .modal-content input[type="text"]:focus,
 .modal-content input[type="email"]:focus,
 .modal-content input[type="file"]:focus {
-    outline: none;
-    background-color: #3b4a63;
-    box-shadow: 0 0 12px #ff6a00;
-    color: #fff;
+    border-color: #ff4500;
 }
 
-#profileImagePreview {
-    margin: 20px auto 30px;
-    width: 110px;
-    height: 110px;
+.preview-img {
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    border: 4px solid #ff6a00;
-    box-shadow: 0 0 20px #ff6a00;
     object-fit: cover;
+    margin: 12px auto 25px;
+    display: block;
+    box-shadow: 0 0 8px #ff4500;
+}
+
+.modal-content button {
+    background-color: #ff4500;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1.05em;
+    box-shadow: 0 4px 15px rgba(255, 69, 0, 0.7);
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover,
+.modal-content button:focus {
+    background-color: #e03e00;
+    outline: none;
+}
+
+/* MENSAGEM DE ERRO */
+.error-message {
+    color: #d8000c;
+    background-color: #ffbaba;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 18px;
+    font-weight: 600;
+}
+
+/* LINK DE LOGIN */
+.login-link {
+    color: #ff4500;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+/* RESPONSIVO */
+@media (max-width: 960px) {
+    .anime-item {
+        width: 47%;
+    }
+}
+
+@media (max-width: 600px) {
+    .anime-item {
+        width: 100%;
+    }
+
+    .navegacao {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* ==== MINHAS ALTERAÇÕES PARA UNIFORMIZAR IMAGENS ==== */
+
+.anime-item img {
+    width: 100%;
+    height: 650px;      /* altura fixa para todas as imagens */
+    object-fit: cover;  /* mantém proporção, corta se necessário */
+    border-radius: 8px;
+    transition: transform 0.3s ease;
     display: block;
 }
 
-.modal-content button[type="submit"] {
-    background: linear-gradient(90deg, #ff6a00, #ff8c00);
-    border: none;
-    padding: 14px 0;
-    border-radius: 10px;
-    color: white;
-    font-weight: 700;
-    font-size: 1.15rem;
-    cursor: pointer;
-    width: 100%;
-    box-shadow: 0 5px 15px rgba(255, 106, 0, 0.75);
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-}
-
-.modal-content button[type="submit"]:hover {
-    background: linear-gradient(90deg, #ff8c00, #ff6a00);
-    box-shadow: 0 8px 20px rgba(255, 140, 0, 0.9);
-}
-
-.close {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #ff6a00;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.close:hover {
-    color: #ffa347;
+.anime-item img:hover {
+    transform: scale(1.05);
 }

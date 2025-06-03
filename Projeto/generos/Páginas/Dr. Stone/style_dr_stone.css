@@ -1,6 +1,7 @@
 @font-face {
     font-family: 'AMORIA';
     src: url('../../../Fontes/AMORIA.otf') format('opentype'); 
+    src: url('../../../Fontes/comebreak/COMEBREAK.ttf') format('opentype');
 }
 
 * {
@@ -107,51 +108,174 @@
     background-color: #555;
   }
 
-  .animes_assistindo h2{
-    background-color: rgba(255, 69, 0, 0.1);
-    padding: 10px 20px;
-    border-left: 5px solid #ff4500;
-    display: inline-block;
-    border-radius: 6px;
-    margin: 50px;
-  }
+  
+  .sinopse {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 40px 20px;
+  margin: 40px auto;
+  max-width: 900px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+}
 
-  .episodios {
-    padding: 40px 20px;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    text-align: center;
-  }
-  
-  .episodios h2 {
-    font-size: 32px;
-    margin-bottom: 20px;
-    color: #ff4500;
-    font-family: 'AMORIA';
-  }
-  
-  .lista-eps {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  .ep {
-    width: 45%;
-    background-color: #222;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  }
-  
-  .ep h3 {
-    margin-bottom: 10px;
-    color: #f12602;
-  }
-  
-  .ep video {
-    width: 100%;
-    border-radius: 8px;
-  }
-  
+.sinopse h2 {
+  font-family: 'AMORIA', sans-serif;
+  font-size: 32px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #f12602;
+}
+
+.sinopse p {
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: justify;
+  margin-bottom: 30px;
+}
+
+.info-anime {
+  background-color: #222;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.info-anime h3 {
+  color: #f12602;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.info-anime ul {
+  list-style: none;
+  padding: 0;
+}
+
+.info-anime li {
+  font-size: 16px;
+  padding: 5px 0;
+  border-bottom: 1px solid #444;
+}
+
+.info-anime li strong {
+  color: #00ffff;
+}
+
+.sinopse-content {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.sinopse-content img {
+  width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #000;
+}
+
+.sinopse-content {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.lado-esquerdo img {
+  width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #000;
+}
+
+.lado-direito {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 300px;
+}
+
+.texto-sinopse {
+  flex: 1;
+  min-width: 300px;
+}
+
+.texto-sinopse p{
+  font-size: 15px;
+}
+
+.texto-sinopse h2{
+  font-family: 'COMEBREAK', 'Arial Narrow', Arial, sans-serif;
+  max-width: 50px;
+  font-size: 20px;
+}
+
+.temporada-title {
+  display: block;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: 'AMORIA', cursive;
+  font-size: 28px;
+  color: #f12602;
+  margin-top: 20px;
+  padding: 8px 12px;
+  border-left: 6px solid #2575fc;
+  user-select: text; /* permite seleção de texto */
+  transition: background-color 0.3s ease;
+}
+
+.temporada-title:hover {
+  background-color: rgba(37, 117, 252, 0.1);
+}
+
+.episodios {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  list-style: none;
+  padding-left: 20px;
+  margin-top: 8px;
+
+  background-color: rgba(37, 117, 252, 0.05); /* fundo azul clarinho */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(37, 117, 252, 0.1);
+}
+
+input[type="checkbox"]:checked + label + .episodios {
+  max-height: 1000px; /* um valor alto para permitir expandir */
+}
+
+.episodios li {
+  margin: 10px 0;
+  padding: 6px 12px;
+  border-left: 4px solid #2575fc;
+  background-color: #e7f0ff, transparent;
+  border-radius: 4px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.episodios li:hover {
+  background-color: #c0d8ff;
+  border-color: #005bb5;
+}
+
+.episodios a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 600;
+  user-select: none;
+  display: block;
+}
+
+.episodios a:hover {
+  text-decoration: underline;
+  color: #003f7d;
+}
+
+
+
+
+
+
+
+
