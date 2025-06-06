@@ -1,0 +1,78 @@
+/* estilo-site.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: #eee;
+  margin: 0;
+  padding: 0;
+}
+
+.nome {
+  background-color: #1f1f1f;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #ff6600;
+}
+
+.nome h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  color: #ff6600;
+}
+
+nav.assistindo,
+nav {
+  margin: 20px 15px 10px;
+}
+
+nav h2,
+.titulo-sessao {
+  color: #ff6600;
+  font-weight: bold;
+  border-bottom: 2px solid #ff6600;
+  padding-bottom: 5px;
+  margin: 0 0 15px 0;
+}
+
+.animes_assistindo,
+.animes-em-breve {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 0 15px 30px;
+  justify-content: center;
+}
+
+.anime-item {
+  width: 22%;
+  background-color: #222;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(255, 102, 0, 0.7);
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.anime-item:hover {
+  transform: scale(1.05);
+}
+
+.anime-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.anime-link {
+  display: block;
+  padding: 10px 0;
+  color: #ff6600;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.anime-link:hover {
+  text-decoration: underline;
+}
