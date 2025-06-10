@@ -1,31 +1,98 @@
+<?php
+// menu.php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Conexão com banco
+$host = "localhost";
+$db   = "animexone";
+$user = "root";
+$pass = "";
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Erro na conexão: " . $conn->connect_error);
+}
+
+// Recupera usuário da sessão
+$usuarioSessao = $_SESSION['usuario'] ?? null;
+
+if ($usuarioSessao) {
+    $sql = $conn->prepare("SELECT nome, email, imagem_perfil FROM usuarios WHERE nome = ?");
+    $sql->bind_param("s", $usuarioSessao);
+    $sql->execute();
+    $result = $sql->get_result();
+
+    if ($result && $result->num_rows === 1) {
+        $usuario = $result->fetch_assoc();
+        if (empty($usuario['imagem_perfil'])) {
+            $usuario['imagem_perfil'] = 'imagens/usuario_padrao.jpg';
+        }
+    } else {
+        $usuario = [
+            "nome" => "Usuário",
+            "email" => "email@usuario.com",
+            "imagem_perfil" => "imagens/usuario_padrao.jpg"
+        ];
+    }
+} else {
+    $usuario = [
+        "nome" => "Visitante",
+        "email" => "",
+        "imagem_perfil" => "imagens/usuario_padrao.jpg"
+    ];
+}
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Menu AnimeXone</title>
+
+  <!-- Cropper.js CSS -->
+  <link href="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.css" rel="stylesheet"/>
+
+  <!-- Seus estilos -->
+  <link rel="stylesheet" href="estilo-site.css" />
+</head>
+<body>
+
 <header>
   <div class="menu-container">
     <nav class="navegacao">
       <div class="links-menu">
 
-        <!-- Aba do usuário -->
         <div class="user-profile dropdown" id="userProfile">
           <div class="user-info" tabindex="0">
-            <img src="" alt="Foto do usuário" id="userImage" class="user-image" />
-            <span id="userName">Usuário</span>
+            <img src="<?php echo htmlspecialchars($usuario['imagem_perfil']); ?>" alt="Foto do usuário" id="userImage" class="user-image" />
+            <span id="userName"><?php echo htmlspecialchars($usuario['nome']); ?></span>
           </div>
           <div class="submenu user-submenu">
-            <p id="userEmail">email@usuario.com</p>
-            <button id="logoutBtn" class="btn-logout">Logout</button>
+            <p id="userEmail"><?php echo htmlspecialchars($usuario['email']); ?></p>
+            <form method="POST" action="logout.php" style="margin:0;">
+              <button type="submit" id="logoutBtn" class="btn-logout">Logout</button>
+            </form>
             <button id="editProfileBtn" class="btn-edit-profile">Editar perfil</button>
           </div>
         </div>
 
-        <a href="http://localhost/Fran/DesenvolvimentoWeb/Projeto/site.php">Home</a>
-        <a href="./generos/lancamentos.php">Lançamentos</a>    
-        <a href="./generos/lancamentos.php">Assinatura</a>
+        <a href="site.php">Home</a>
+        <a href="./generos/lancamentos.php">Lançamentos</a>
+        <a href="./generos/assinatura.php">Assinatura</a>
+
         <div class="dropdown">
           <a href="#">Gênero</a>
           <div class="submenu">
             <a href="./generos/shounen.php">Shounen</a>
             <a href="./generos/comedia.php">Comédia</a>
             <a href="./generos/romance.php">Romance</a>
-            <a href="./generos/seinein.php">Seinen</a>
+            <a href="./generos/seinen.php">Seinen</a>
             <a href="./generos/mecha.php">Mecha</a>
             <a href="./generos/terror.php">Terror</a>
             <a href="./generos/isekai.php">Isekai</a>
@@ -40,27 +107,38 @@
     </nav>
   </div>
 
-  <!-- Janela de edição de perfil -->
+  <!-- Modal de edição de perfil -->
   <div id="editProfileModal" class="modal" style="display: none;">
     <div class="modal-content">
       <span class="close" id="closeModalBtn">&times;</span>
       <h2>Editar Perfil</h2>
-      <form id="editProfileForm">
+      <form id="editProfileForm" method="POST" action="atualizar_perfil.php" enctype="multipart/form-data">
         <label for="editName">Nome:</label>
-        <input type="text" id="editName" name="editName" required>
+        <input type="text" id="editName" name="editName" value="<?php echo htmlspecialchars($usuario['nome']); ?>" required>
 
         <label for="editEmail">Email:</label>
-        <input type="email" id="editEmail" name="editEmail" required>
+        <input type="email" id="editEmail" name="editEmail" value="<?php echo htmlspecialchars($usuario['email']); ?>" required>
 
         <label for="editImage">Imagem de Perfil:</label>
         <input type="file" id="editImage" name="editImage" accept="image/*">
-        <img id="profileImagePreview" src="" alt="Prévia da imagem" style="max-width: 120px; border-radius: 50%; margin-top: 10px; display: block;">
 
-        <button type="submit" class="btn-save-profile">Salvar</button>
+        <!-- Container onde será mostrado e cortado a imagem -->
+        <div style="margin-top: 15px; max-width: 100%;">
+          <img id="imageCropper" style="max-width: 100%; display: none; border-radius: 12px;"/>
+        </div>
+
+        <!-- Campo escondido para salvar a imagem cortada em base64 -->
+        <input type="hidden" name="croppedImage" id="croppedImage">
+
+        <button type="submit" class="btn-save-profile" style="margin-top: 20px;">Salvar</button>
       </form>
     </div>
   </div>
-
-
-
 </header>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.js"></script>
+<script src="script-menu.js"></script>
+
+</body>
+</html>

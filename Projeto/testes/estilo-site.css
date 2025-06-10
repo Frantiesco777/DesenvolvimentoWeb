@@ -2,14 +2,14 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #121212;
+  background-color: rgb(25, 25, 30); /* fundo escuro RGB */
   color: #eee;
   margin: 0;
   padding: 0;
 }
 
 .nome {
-  background-color: #1f1f1f;
+  background-color: rgb(35, 35, 40); /* tom próximo do fundo, mas mais claro */
   padding: 20px;
   text-align: center;
   border-bottom: 2px solid #ff6600;
@@ -32,7 +32,7 @@ nav h2,
   font-weight: bold;
   border-bottom: 2px solid #ff6600;
   padding-bottom: 5px;
-  margin: 0 0 15px 0;
+  margin: 15px;
 }
 
 .animes_assistindo,
@@ -46,7 +46,7 @@ nav h2,
 
 .anime-item {
   width: 22%;
-  background-color: #222;
+  background-color: rgb(40, 40, 50); /* fundo mais claro para destaque */
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 0 8px rgba(255, 102, 0, 0.7);
@@ -62,6 +62,7 @@ nav h2,
   width: 100%;
   height: auto;
   display: block;
+  border-bottom: 1px solid #ff6600;
 }
 
 .anime-link {
@@ -75,4 +76,34 @@ nav h2,
 
 .anime-link:hover {
   text-decoration: underline;
+}
+
+.anime-detalhes {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #1e1e1e;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+  text-align: center;
+}
+
+.anime-detalhes img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.anime-detalhes a {
+  color: #00d8ff;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.anime-detalhes a:hover {
+  text-decoration: underline;
+  color: #00ffff;
 }

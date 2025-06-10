@@ -6,7 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../lancamentos.html">
-    <link rel="stylesheet" href="style_dr_stone.css">
+    <link rel="stylesheet" href="style_dr_stone.css" />
+
     <title>Dr. Stone</title>
 </head>
 <body>  

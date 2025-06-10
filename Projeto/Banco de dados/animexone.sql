@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06/06/2025 às 03:21
+-- Tempo de geração: 10/06/2025 às 03:28
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -33,6 +33,7 @@ CREATE TABLE `animes` (
   `imagem` varchar(255) NOT NULL,
   `link` varchar(255) NOT NULL,
   `categoria` varchar(50) NOT NULL,
+  `temporada` varchar(250) DEFAULT NULL,
   `criado_em` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -40,10 +41,15 @@ CREATE TABLE `animes` (
 -- Despejando dados para a tabela `animes`
 --
 
-INSERT INTO `animes` (`id`, `nome`, `imagem`, `link`, `categoria`, `criado_em`) VALUES
-(1, 'Dr. Stone', 'imagens/Dr_stone.jpg	', './generos/Páginas/Dr. Stone/dr_stone.php', 'assistindo', '2025-06-06 00:35:21'),
-(2, 'Kill la Kill', 'imagens/Kill_la_Kill.jpg', './generos/Páginas/Kill la Kill/kill_la_kill.html', 'assistindo', '2025-06-06 00:35:21'),
-(3, 'Dan Da Dan', 'imagens/dan_da_dan.jpg', '', '', '2025-06-06 00:58:03');
+INSERT INTO `animes` (`id`, `nome`, `imagem`, `link`, `categoria`, `temporada`, `criado_em`) VALUES
+(1, 'Dr. Stone', 'imagens/Dr_stone.jpg	', '', 'assistindo', NULL, '2025-06-06 00:35:21'),
+(2, 'Kill la Kill', 'imagens/Kill_la_Kill.jpg', '', 'assistindo', NULL, '2025-06-06 00:35:21'),
+(3, 'Dan Da Dan', 'imagens/dan_da_dan.jpg', '', 'assistindo', 'Invernolkjlkjk', '2025-06-06 00:58:03'),
+(4, 'Chainsaw Man', 'imagens/chainsaw_man.jpg', '', 'assistindo', '54564kjk', '2025-06-10 00:43:03'),
+(5, 'My Hero Academia: Vigilantes', 'imagens/vigilantes.jpg', '', 'em_breve', NULL, '2025-06-10 00:51:03'),
+(6, 'Kimi to Boku', 'imagens/kimi_to_boku.jpg', '', 'em_breve', NULL, '2025-06-10 00:55:13'),
+(7, 'Nigejouzu', 'imagens/nigejouzu.jpg', '', 'em_breve', NULL, '2025-06-10 00:55:13'),
+(8, 'Mayonaka Punch', 'imagens/mayonaka_punch.jpg', '', 'em_breve', NULL, '2025-06-10 01:02:47');
 
 -- --------------------------------------------------------
 
@@ -57,16 +63,18 @@ CREATE TABLE `usuarios` (
   `email` varchar(100) NOT NULL,
   `senha` varchar(255) NOT NULL,
   `imagen` varchar(255) DEFAULT NULL,
-  `criado_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `criado_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `imagem_perfil` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `imagen`, `criado_em`) VALUES
-(3, 'EvilLucifer', 'francisco.cardoso.teixeira777@gmail.com', '$2y$10$pg1ZW6G1raZ4v2/exISg1u4lm4aACo3uFXOzkaBT1pmjUDLfAtp92', NULL, '2025-06-05 23:49:27'),
-(4, 'Evil', 'toto@gmail.com', '$2y$10$zlZPBZn2x3qFFG9ACo3uSuwcHce63mxDCpG6GOFIiXtW1xBJNLU7q', NULL, '2025-06-06 00:01:56');
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `imagen`, `criado_em`, `imagem_perfil`) VALUES
+(5, 'Francisco Cardoso Teixeira', 'francisco.cardoso.teixeira777@gmail.com', '$2y$10$i0KFkM/aib4EHRrcB7F7Y.U2yRYds6YdMaNUSN0wvB.hp0X0NCxgy', NULL, '2025-06-09 22:36:40', NULL),
+(7, 'EvilLucifer', 'evil@gmail.com', '$2y$10$zF/O6Og3HTTM2FfbcmVOGO.Hsp6a2BcxSc0ZfFkpELyqZF17OASsK', NULL, '2025-06-10 01:14:04', 'uploads/perfil_684786dcde59d1.81219649.jpg'),
+(8, 'Thierry', 'thierry@gmail.com', '$2y$10$hT0xZqMgLNFrpO7coA6IPOUopYBmqpZi42jmAUmHr.dEZoaWH60YW', NULL, '2025-06-10 01:09:12', 'uploads/perfil_684785b860bbf3.46654787.jpg');
 
 --
 -- Índices para tabelas despejadas
@@ -93,13 +101,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `animes`
 --
 ALTER TABLE `animes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
