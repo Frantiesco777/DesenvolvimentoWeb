@@ -15,8 +15,8 @@ if ($idAnime <= 0) {
     exit;
 }
 
-// Consulta o anime no banco
-$sql = $conexao->prepare("SELECT * FROM animes WHERE id = ?");
+// Consulta o anime na tabela animes_geral
+$sql = $conexao->prepare("SELECT * FROM animes_geral WHERE id = ?");
 $sql->bind_param("i", $idAnime);
 $sql->execute();
 $result = $sql->get_result();
@@ -28,16 +28,15 @@ if ($result->num_rows !== 1) {
 
 $anime = $result->fetch_assoc();
 
-// Exemplo: Dados extras do anime
-// Para deixar o layout flexível, você pode guardar info extra como JSON no banco
-// tipo: temporada, estúdio, audio, episodios, status, ano, sinopse
-// Aqui vou simular puxando essas infos direto do array (você pode ajustar o DB pra ter essas colunas)
-$temporada = $anime['temporada'] ?? 'Verão';
-$estudio = $anime['estudio'] ?? 'TMS Entertainment';
-$audio = $anime['audio'] ?? 'Dublado';
-$episodios = $anime['episodios'] ?? '24';
-$status = $anime['status'] ?? 'Completo';
-$ano = $anime['ano'] ?? '2019';
+// Pegando os campos da tabela
+$nome = $anime['nome'];
+$imagem = $anime['imagem'];
+$temporada = $anime['temporada'];
+$genero = $anime['genero'];
+$sub_generos = $anime['sub_generos'] ?? 'N/A';
+$estudio = $anime['estudio'] ?? 'Desconhecido';
+$fonte = $anime['fonte'] ?? 'N/A';
+$episodios = $anime['episodios'] ?? 'Indefinido';
 $sinopse = $anime['sinopse'] ?? 'Sinopse não disponível.';
 ?>
 
@@ -46,10 +45,10 @@ $sinopse = $anime['sinopse'] ?? 'Sinopse não disponível.';
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title><?php echo htmlspecialchars($anime['nome']); ?> - AnimaXone</title>
+    <title><?php echo htmlspecialchars($nome); ?> - AnimaXone</title>
     <link rel="stylesheet" href="estilo-site.css" />
     <link rel="stylesheet" href="estilo-menu.css" />
-    <link rel="stylesheet" href="anime.css" /> <!-- Seu CSS estilo Dr Stone -->
+    <link rel="stylesheet" href="anime.css" />
 </head>
 <body>
 
@@ -63,22 +62,22 @@ $sinopse = $anime['sinopse'] ?? 'Sinopse não disponível.';
         <div class="container sinopse-content">
         
             <div class="lado-esquerdo">
-                <img src="<?php echo htmlspecialchars($anime['imagem']); ?>" alt="Capa de <?php echo htmlspecialchars($anime['nome']); ?>">
+                <img src="<?php echo htmlspecialchars($imagem); ?>" alt="Capa de <?php echo htmlspecialchars($nome); ?>">
             </div>
 
             <div class="lado-direito">
                 <div class="titulo">
-                    <h2><?php echo htmlspecialchars($anime['nome']); ?></h2>
+                    <h2><?php echo htmlspecialchars($nome); ?></h2>
                 </div>
                 <div class="info-anime">
                     <h3>Informações</h3>
                     <ul>
                         <li><strong>Temporada:</strong> <?php echo htmlspecialchars($temporada); ?></li>
-                        <li><strong>Estúdios:</strong> <?php echo htmlspecialchars($estudio); ?></li>
-                        <li><strong>Áudio:</strong> <?php echo htmlspecialchars($audio); ?></li>
+                        <li><strong>Gênero:</strong> <?php echo htmlspecialchars($genero); ?></li>
+                        <li><strong>Subgêneros:</strong> <?php echo htmlspecialchars($sub_generos); ?></li>
+                        <li><strong>Estúdio:</strong> <?php echo htmlspecialchars($estudio); ?></li>
+                        <li><strong>Fonte:</strong> <?php echo htmlspecialchars($fonte); ?></li>
                         <li><strong>Episódios:</strong> <?php echo htmlspecialchars($episodios); ?></li>
-                        <li><strong>Status do Anime:</strong> <?php echo htmlspecialchars($status); ?></li>
-                        <li><strong>Ano:</strong> <?php echo htmlspecialchars($ano); ?></li>
                     </ul>
                 </div>
             </div>
@@ -89,30 +88,6 @@ $sinopse = $anime['sinopse'] ?? 'Sinopse não disponível.';
             </div>
 
         </div>
-
-        <section class="temporadas">
-            <h2>Temporadas</h2>
-            <div class="temporada">
-                <input type="checkbox" id="temp1" hidden>
-                <label for="temp1" class="temporada-title">Temporada 1</label>
-                <ul class="episodios">
-                    <?php
-                    // Supondo que você tenha os episódios em JSON ou outro campo no banco
-                    // Aqui um exemplo estático, mas você pode puxar do banco e iterar:
-                    $episodiosLinks = [
-                        ["ep" => 1, "link" => "Temporada1/eps/ep_1.html"],
-                        ["ep" => 2, "link" => "Temporada1/eps/ep_2.html"],
-                        ["ep" => 3, "link" => "Temporada1/eps/ep_3.html"],
-                        // ... etc
-                    ];
-                    foreach ($episodiosLinks as $ep) {
-                        echo '<li><a href="'.htmlspecialchars($ep['link']).'">Episódio '.$ep['ep'].'</a></li>';
-                    }
-                    ?>
-                </ul>
-            </div>
-        </section>
-
     </section>
 
 </body>

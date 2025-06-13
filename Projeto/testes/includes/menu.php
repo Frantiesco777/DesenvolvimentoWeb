@@ -89,8 +89,8 @@ if ($usuarioSessao) {
         <div class="dropdown">
           <a href="#">Gênero</a>
           <div class="submenu">
-            <a href="./generos/shounen.php">Shounen</a>
-            <a href="./generos/comedia.php">Comédia</a>
+            <a href="./shounen.php">Shounen</a>
+            <a href="./comedia.php">Comédia</a>
             <a href="./generos/romance.php">Romance</a>
             <a href="./generos/seinen.php">Seinen</a>
             <a href="./generos/mecha.php">Mecha</a>
