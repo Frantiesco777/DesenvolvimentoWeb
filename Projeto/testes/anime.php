@@ -7,7 +7,7 @@ if (!isset($_SESSION['usuario'])) {
 
 require_once("conexao.php");
 
-// Pega o id do anime pela URL
+// Pega o ID do anime pela URL
 $idAnime = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($idAnime <= 0) {
@@ -15,7 +15,7 @@ if ($idAnime <= 0) {
     exit;
 }
 
-// Consulta o anime na tabela animes_geral
+// Consulta dados principais do anime (exceto temporada)
 $sql = $conexao->prepare("SELECT * FROM animes_geral WHERE id = ?");
 $sql->bind_param("i", $idAnime);
 $sql->execute();
@@ -27,17 +27,32 @@ if ($result->num_rows !== 1) {
 }
 
 $anime = $result->fetch_assoc();
-
-// Pegando os campos da tabela
 $nome = $anime['nome'];
 $imagem = $anime['imagem'];
-$temporada = $anime['temporada'];
 $genero = $anime['genero'];
-$sub_generos = $anime['sub_generos'] ?? 'N/A';
-$estudio = $anime['estudio'] ?? 'Desconhecido';
-$fonte = $anime['fonte'] ?? 'N/A';
-$episodios = $anime['episodios'] ?? 'Indefinido';
-$sinopse = $anime['sinopse'] ?? 'Sinopse não disponível.';
+
+// Consulta informações adicionais do anime, incluindo temporada
+$sqlInfo = $conexao->prepare("SELECT * FROM informacoes WHERE anime_id = ?");
+$sqlInfo->bind_param("i", $idAnime);
+$sqlInfo->execute();
+$resultInfo = $sqlInfo->get_result();
+
+if ($resultInfo->num_rows === 1) {
+    $info = $resultInfo->fetch_assoc();
+    $temporada = $info['temporada'];
+    $sub_generos = $info['sub_generos'];
+    $estudio = $info['estudio'];
+    $fonte = $info['fonte'];
+    $episodios = $info['episodios'];
+    $sinopse = $info['sinopse'];
+} else {
+    $temporada = 'Indefinida';
+    $sub_generos = 'N/A';
+    $estudio = 'Desconhecido';
+    $fonte = 'N/A';
+    $episodios = 'Indefinido';
+    $sinopse = 'Sinopse não disponível.';
+}
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +75,7 @@ $sinopse = $anime['sinopse'] ?? 'Sinopse não disponível.';
 
     <section class="sinopse">
         <div class="container sinopse-content">
-        
+
             <div class="lado-esquerdo">
                 <img src="<?php echo htmlspecialchars($imagem); ?>" alt="Capa de <?php echo htmlspecialchars($nome); ?>">
             </div>

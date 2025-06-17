@@ -5,33 +5,22 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
+// Conexão com o banco
 $host = "localhost";
 $db   = "animexone";
 $user = "root";
 $pass = "";
 
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-    die("Erro na conexão: " . $conn->connect_error);
+$conn->set_charset("utf8mb4");
+
+// Consulta todos os animes
+$result = $conn->query("SELECT * FROM animes_geral ORDER BY criado_em DESC");
+$animes = [];
+while ($row = $result->fetch_assoc()) {
+    $animes[] = $row;
 }
-
-function getAnimesByCategory($conn, $categoria) {
-    $categoria = $conn->real_escape_string($categoria);
-    $sql = "SELECT * FROM animes WHERE categoria='$categoria' ORDER BY criado_em DESC";
-    $result = $conn->query($sql);
-    $animes = [];
-    if ($result && $result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-            $animes[] = $row;
-        }
-    }
-    return $animes;
-}
-
-$animesAssistindo = getAnimesByCategory($conn, 'assistindo');
-$animesEmBreve = getAnimesByCategory($conn, 'em_breve');
-
-$todosAnimes = $conn->query("SELECT * FROM animes");
 ?>
 
 <!DOCTYPE html>
@@ -53,30 +42,19 @@ $todosAnimes = $conn->query("SELECT * FROM animes");
 
   <?php include("./includes/menu.php"); ?>
 
-  <!-- Seção: Você está assistindo -->
+  <!-- Seção: Todos os Animes -->
   <section>
-    <h2 class="titulo-sessao">Você está assistindo</h2>
+    <h2 class="titulo-sessao">Todos os Animes</h2>
     <div class="animes_assistindo">
-      <?php foreach($animesAssistindo as $anime): ?>
+      <?php foreach ($animes as $anime): ?>
         <div class="anime-item">
           <a href="anime.php?id=<?php echo $anime['id']; ?>">
-            <img src="<?php echo htmlspecialchars($anime['imagem']); ?>" alt="<?php echo htmlspecialchars($anime['nome']); ?>" />
-            <span class="anime-link"><?php echo htmlspecialchars($anime['nome']); ?></span>
-          </a>
-        </div>
-      <?php endforeach; ?>
-    </div>
-  </section>
-
-  <!-- Seção: Em breve -->
-  <section>
-    <h2 class="titulo-sessao">Animes em Breve</h2>
-    <div class="animes-em-breve">
-      <?php foreach($animesEmBreve as $anime): ?>
-        <div class="anime-item">
-          <a href="anime.php?id=<?php echo $anime['id']; ?>">
-            <img src="<?php echo htmlspecialchars($anime['imagem']); ?>" alt="<?php echo htmlspecialchars($anime['nome']); ?>" />
-            <span class="anime-link"><?php echo htmlspecialchars($anime['nome']); ?></span>
+            <?php 
+              $img = !empty($anime['imagem']) ? htmlspecialchars($anime['imagem']) : 'imagens/padrao.jpg';
+              $nome = htmlspecialchars($anime['nome']);
+            ?>
+            <img src="<?php echo $img; ?>" alt="<?php echo $nome; ?>" />
+            <span class="anime-link"><?php echo $nome; ?></span>
           </a>
         </div>
       <?php endforeach; ?>
