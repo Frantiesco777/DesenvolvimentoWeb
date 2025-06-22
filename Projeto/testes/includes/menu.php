@@ -84,15 +84,17 @@ if ($usuarioSessao) {
 
         <a href="site.php">Home</a>
         <a href="./generos/lancamentos.php">Lançamentos</a>
+        <a href="./filmes.php">Filmes</a>
+        <a href="./mangas.php">Mangás</a>
         <a href="./generos/assinatura.php">Assinatura</a>
 
         <div class="dropdown">
-          <a href="#">Gênero</a>
+          <a href="">Gênero</a>
           <div class="submenu">
             <a href="./shounen.php">Shounen</a>
             <a href="./comedia.php">Comédia</a>
-            <a href="./generos/romance.php">Romance</a>
-            <a href="./generos/seinen.php">Seinen</a>
+            <a href="./romance.php">Romance</a>
+            <a href="./seinen.php">Seinen</a>
             <a href="./generos/mecha.php">Mecha</a>
             <a href="./generos/terror.php">Terror</a>
             <a href="./generos/isekai.php">Isekai</a>
