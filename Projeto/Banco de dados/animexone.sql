@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 22-Jun-2025 às 21:33
--- Versão do servidor: 10.1.38-MariaDB
--- versão do PHP: 7.3.2
+-- Tempo de geração: 24/06/2025 às 03:42
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,25 +18,25 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `animexone`
+-- Banco de dados: `animexone`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `animes_geral`
+-- Estrutura para tabela `animes_geral`
 --
 
 CREATE TABLE `animes_geral` (
   `id` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `imagem` varchar(255) NOT NULL,
-  `criado_em` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `criado_em` timestamp NOT NULL DEFAULT current_timestamp(),
   `genero` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `animes_geral`
+-- Despejando dados para a tabela `animes_geral`
 --
 
 INSERT INTO `animes_geral` (`id`, `nome`, `imagem`, `criado_em`, `genero`) VALUES
@@ -68,12 +67,14 @@ INSERT INTO `animes_geral` (`id`, `nome`, `imagem`, `criado_em`, `genero`) VALUE
 (25, 'Erased', 'imagens/erased.png', '2025-06-22 14:23:12', 'Seinein'),
 (26, 'Cowboy Bebop', 'imagens/cowboy.jpg', '2025-06-22 14:23:12', 'Seinein'),
 (27, 'Monster', 'imagens/monster.jpg', '2025-06-22 14:26:20', 'Seinein'),
-(28, 'Devilman Cry Baby', 'imagens/devilman.jpg', '2025-06-22 14:26:20', 'Seinein');
+(28, 'Devilman Cry Baby', 'imagens/devilman.jpg', '2025-06-22 14:26:20', 'Seinein'),
+(29, 'Sono Bisque Doll', 'imagens/sono_bisque_doll.png', '2025-06-24 01:30:50', 'Romance'),
+(31, 'Boruto: Naruto Next Generations', 'imagens/boruto.png', '2025-06-24 01:36:36', 'Shounen');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `episodios`
+-- Estrutura para tabela `episodios`
 --
 
 CREATE TABLE `episodios` (
@@ -81,10 +82,10 @@ CREATE TABLE `episodios` (
   `temporada_id` int(11) NOT NULL,
   `numero` int(11) DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `episodios`
+-- Despejando dados para a tabela `episodios`
 --
 
 INSERT INTO `episodios` (`id`, `temporada_id`, `numero`, `link`) VALUES
@@ -128,12 +129,57 @@ INSERT INTO `episodios` (`id`, `temporada_id`, `numero`, `link`) VALUES
 (43, 2, 26, 'eps/ep_26.html'),
 (44, 3, 1, 'eps/ep_1.html'),
 (45, 3, 2, 'eps/ep_2.html'),
-(46, 3, 3, 'eps/ep_3.html');
+(46, 3, 3, 'eps/ep_3.html'),
+(47, 3, 4, 'eps/ep_4.html'),
+(48, 3, 5, 'eps/ep_5.html'),
+(49, 3, 6, 'eps/ep_6.html'),
+(50, 3, 7, 'eps/ep_7.html'),
+(51, 4, 1, 'eps/ep_1.html'),
+(52, 4, 2, 'eps/ep_2.html'),
+(53, 4, 3, 'eps/ep_3.html'),
+(54, 4, 4, 'eps/ep_4.html'),
+(55, 4, 5, 'eps/ep_5.html'),
+(56, 4, 6, 'eps/ep_6.html'),
+(57, 4, 7, 'eps/ep_7.html'),
+(58, 4, 8, 'eps/ep_8.html'),
+(59, 4, 9, 'eps/ep_9.html'),
+(60, 4, 10, 'eps/ep_10.html'),
+(61, 4, 11, 'eps/ep_11.html'),
+(62, 4, 1, 'eps/ep_1.html'),
+(63, 4, 2, 'eps/ep_2.html'),
+(64, 4, 3, 'eps/ep_3.html'),
+(65, 4, 4, 'eps/ep_4.html'),
+(66, 4, 5, 'eps/ep_5.html'),
+(67, 4, 6, 'eps/ep_6.html'),
+(68, 4, 7, 'eps/ep_7.html'),
+(69, 4, 8, 'eps/ep_8.html'),
+(70, 4, 9, 'eps/ep_9.html'),
+(71, 4, 10, 'eps/ep_10.html'),
+(72, 4, 11, 'eps/ep_11.html'),
+(73, 5, 1, 'eps/ep_1.html'),
+(74, 5, 2, 'eps/ep_2.html'),
+(75, 5, 3, 'eps/ep_3.html'),
+(76, 5, 4, 'eps/ep_4.html'),
+(77, 5, 5, 'eps/ep_5.html'),
+(78, 5, 6, 'eps/ep_6.html'),
+(79, 5, 7, 'eps/ep_7.html'),
+(80, 5, 8, 'eps/ep_8.html'),
+(81, 5, 9, 'eps/ep_9.html'),
+(82, 5, 10, 'eps/ep_10.html'),
+(83, 5, 11, 'eps/ep_11.html'),
+(84, 6, 1, 'eps/ep_1.html'),
+(85, 6, 2, 'eps/ep_2.html'),
+(86, 6, 3, 'eps/ep_3.html'),
+(87, 6, 4, 'eps/ep_4.html'),
+(88, 6, 5, 'eps/ep_5.html'),
+(89, 6, 6, 'eps/ep_6.html'),
+(90, 6, 7, 'eps/ep_7.html'),
+(91, 6, 8, 'eps/ep_8.html');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `informacoes`
+-- Estrutura para tabela `informacoes`
 --
 
 CREATE TABLE `informacoes` (
@@ -143,12 +189,12 @@ CREATE TABLE `informacoes` (
   `sub_generos` varchar(255) DEFAULT NULL,
   `fonte` varchar(255) DEFAULT NULL,
   `episodios` int(11) DEFAULT NULL,
-  `sinopse` text,
+  `sinopse` text DEFAULT NULL,
   `temporada` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `informacoes`
+-- Despejando dados para a tabela `informacoes`
 --
 
 INSERT INTO `informacoes` (`id`, `anime_id`, `estudio`, `sub_generos`, `fonte`, `episodios`, `sinopse`, `temporada`) VALUES
@@ -175,12 +221,14 @@ INSERT INTO `informacoes` (`id`, `anime_id`, `estudio`, `sub_generos`, `fonte`, 
 (21, 21, 'Shaft', 'Comédia, Romance', 'Mangá', 20, 'Raku Ichijou, um aluno do primeiro ano da Escola Secundária Bonyari, é o único herdeiro de uma intimidadora família yakuza. Dez anos atrás, Raku fez uma promessa à sua amiga de infância. Agora, tudo o que ele tem para se sustentar é um pingente com cadeado, que só pode ser destrancado com a chave que a garota levou consigo quando se separaram.', 'Inverno'),
 (22, 22, 'OLM', 'Comédia, Romance', 'Mangá', 12, 'Hitohito Tadano é um garoto comum que chega ao primeiro dia de aula com um plano claro: evitar problemas e se esforçar para se misturar aos outros. Infelizmente, ele fracassa imediatamente ao se sentar ao lado da madonna da escola, Shouko Komi. Seus colegas agora o reconhecem como alguém a ser eliminado para ter a chance de sentar ao lado da garota mais bonita da turma.', 'Outono'),
 (23, 23, 'A-1 Pictures , Trigger , CloverWorks', 'Ação, Drama, Romance, Ficção científica', 'Original', 24, 'Em um futuro distante, a humanidade foi levada à quase extinção por feras gigantes conhecidas como Klaxossauros, forçando os humanos sobreviventes a se refugiarem em enormes cidades-fortaleza chamadas Plantações. Crianças criadas aqui são treinadas para pilotar mechas gigantes conhecidos como FranXX — as únicas armas conhecidas por serem eficazes contra os Klaxossauros — em pares de meninos e meninas. Criadas com o único propósito de pilotar essas máquinas, essas crianças desconhecem o mundo exterior e só conseguem provar sua existência defendendo sua raça.', 'Inverno'),
-(24, 24, 'OLM, TOHO animation STUDIO', 'Drama, Mistério, Romance', 'Light novel', 24, 'Maomao, filha de um boticário, foi arrancada de sua vida pacífica e vendida aos escalões mais baixos da corte imperial. Agora apenas uma criada, Maomao se adapta à sua nova vida mundana e esconde seu vasto conhecimento de medicina para evitar qualquer atenção indesejada.', 'Outono');
+(24, 24, 'OLM, TOHO animation STUDIO', 'Drama, Mistério, Romance', 'Light novel', 24, 'Maomao, filha de um boticário, foi arrancada de sua vida pacífica e vendida aos escalões mais baixos da corte imperial. Agora apenas uma criada, Maomao se adapta à sua nova vida mundana e esconde seu vasto conhecimento de medicina para evitar qualquer atenção indesejada.', 'Outono'),
+(25, 29, 'CloverWorks', 'Romance, escolar', 'Mangá', 12, 'O estudante do ensino médio Wakana Gojou passa os dias aperfeiçoando a arte de fazer bonecas hina, na esperança de eventualmente alcançar o nível de perícia de seu avô. Enquanto seus colegas adolescentes se ocupam com a cultura pop, Gojou encontra a felicidade em costurar roupas para suas bonecas. No entanto, ele faz de tudo para manter seu hobby único em segredo, pois acredita que seria ridicularizado se fosse revelado.', 'Inverno'),
+(27, 31, 'Pierrot', 'Ação , Aventura , Fantasia', 'Mangá', 293, 'Após o fim bem-sucedido da Quarta Guerra Mundial Ninja, Konohagakure tem desfrutado de um período de paz, prosperidade e extraordinário avanço tecnológico. Tudo isso graças aos esforços das Forças Aliadas Shinobi e do Sétimo Hokage da vila, Naruto Uzumaki. Agora, assemelhando-se a uma metrópole moderna, Konohagakure mudou, especialmente a vida de um shinobi. Sob o olhar atento de Naruto e seus antigos companheiros, uma nova geração de shinobi se destacou para aprender os costumes dos ninjas.', 'Primavera');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `temporadas_animes`
+-- Estrutura para tabela `temporadas_animes`
 --
 
 CREATE TABLE `temporadas_animes` (
@@ -188,10 +236,10 @@ CREATE TABLE `temporadas_animes` (
   `anime_id` int(11) NOT NULL,
   `numero` int(11) DEFAULT NULL,
   `nome` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `temporadas_animes`
+-- Despejando dados para a tabela `temporadas_animes`
 --
 
 INSERT INTO `temporadas_animes` (`id`, `anime_id`, `numero`, `nome`) VALUES
@@ -205,7 +253,7 @@ INSERT INTO `temporadas_animes` (`id`, `anime_id`, `numero`, `nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `usuarios`
+-- Estrutura para tabela `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -214,93 +262,122 @@ CREATE TABLE `usuarios` (
   `email` varchar(100) NOT NULL,
   `senha` varchar(255) NOT NULL,
   `imagen` varchar(255) DEFAULT NULL,
-  `criado_em` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `criado_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `imagem_perfil` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `usuarios`
+-- Despejando dados para a tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `imagen`, `criado_em`, `imagem_perfil`) VALUES
-(7, 'EvilLucifer', 'evil@gmail.com', '$2y$10$zF/O6Og3HTTM2FfbcmVOGO.Hsp6a2BcxSc0ZfFkpELyqZF17OASsK', NULL, '2025-06-12 23:02:01', 'uploads/perfil_684b5c69436e02.54358535.jpg');
+(14, 'Evil', 'evil@gmail.com', '$2y$10$DunGKSE5R4SEEvGL2LPONuEz5PF0dLcHBdakLXCi.5zyaZZD6SwqC', NULL, '2025-06-24 00:59:59', NULL),
+(15, 'ADM', 'admin@admin.com', '$2y$10$rOXWDXnw0k/lmriG1K1AOuivjFmCbirnAeJh/llvhUS5SWJqgSgsi', NULL, '2025-06-24 01:01:59', NULL);
+
+-- --------------------------------------------------------
 
 --
--- Indexes for dumped tables
+-- Estrutura para tabela `usuarios_animes_assistindo`
+--
+
+CREATE TABLE `usuarios_animes_assistindo` (
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `anime_id` int(11) NOT NULL,
+  `episodio` int(11) NOT NULL,
+  `atualizado_em` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Índices para tabelas despejadas
 --
 
 --
--- Indexes for table `animes_geral`
+-- Índices de tabela `animes_geral`
 --
 ALTER TABLE `animes_geral`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `episodios`
+-- Índices de tabela `episodios`
 --
 ALTER TABLE `episodios`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `informacoes`
+-- Índices de tabela `informacoes`
 --
 ALTER TABLE `informacoes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `anime_id` (`anime_id`);
 
 --
--- Indexes for table `temporadas_animes`
+-- Índices de tabela `temporadas_animes`
 --
 ALTER TABLE `temporadas_animes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `usuarios`
+-- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Índices de tabela `usuarios_animes_assistindo`
+--
+ALTER TABLE `usuarios_animes_assistindo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `anime_id` (`anime_id`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT for table `animes_geral`
+-- AUTO_INCREMENT de tabela `animes_geral`
 --
 ALTER TABLE `animes_geral`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
--- AUTO_INCREMENT for table `episodios`
+-- AUTO_INCREMENT de tabela `episodios`
 --
 ALTER TABLE `episodios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
--- AUTO_INCREMENT for table `informacoes`
+-- AUTO_INCREMENT de tabela `informacoes`
 --
 ALTER TABLE `informacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT for table `temporadas_animes`
+-- AUTO_INCREMENT de tabela `temporadas_animes`
 --
 ALTER TABLE `temporadas_animes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `usuarios`
+-- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT de tabela `usuarios_animes_assistindo`
+--
+ALTER TABLE `usuarios_animes_assistindo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `informacoes`
+-- Restrições para tabelas `informacoes`
 --
 ALTER TABLE `informacoes`
   ADD CONSTRAINT `informacoes_ibfk_1` FOREIGN KEY (`anime_id`) REFERENCES `animes_geral` (`id`) ON DELETE CASCADE;

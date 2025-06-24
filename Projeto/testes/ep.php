@@ -5,6 +5,9 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
+// Pega o id do usuário para chave no localStorage
+$idUsuario = isset($_SESSION['usuario']['id']) ? $_SESSION['usuario']['id'] : 'anonimo';
+
 require_once("conexao.php");
 
 $idEp = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -14,7 +17,7 @@ if ($idEp <= 0) {
     exit;
 }
 
-$sql = $conexao->prepare("SELECT e.numero, e.link, t.nome AS temporada_nome, a.nome AS anime_nome, t.anime_id
+$sql = $conexao->prepare("SELECT e.id, e.numero, e.link, t.nome AS temporada_nome, a.nome AS anime_nome, t.anime_id
                          FROM episodios e
                          INNER JOIN temporadas_animes t ON e.temporada_id = t.id
                          INNER JOIN animes_geral a ON t.anime_id = a.id
@@ -34,6 +37,7 @@ if ($result->num_rows !== 1) {
 
 $ep = $result->fetch_assoc();
 
+$idEp = $ep['id']; // id do episódio
 $numero = $ep['numero'];
 $link = $ep['link'];
 $titulo = "Episódio " . $numero;
@@ -73,15 +77,6 @@ $animeId = $ep['anime_id'];
             height: 500px;
             border: none;
         }
-        .descricao {
-            max-width: 900px;
-            background: #222;
-            border-radius: 10px;
-            padding: 15px 20px;
-            box-shadow: 0 0 15px #f9a825;
-            font-size: 1.1rem;
-            line-height: 1.5;
-        }
         a {
             color: #f9a825;
             text-decoration: none;
@@ -89,6 +84,30 @@ $animeId = $ep['anime_id'];
         }
         a:hover {
             text-decoration: underline;
+        }
+        .botoes-ep {
+            margin: 20px 0;
+            display: flex;
+            gap: 15px;
+        }
+        .botoes-ep button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .botoes-ep button:hover {
+            background-color: #45a049;
+        }
+        .botoes-ep button.remover {
+            background-color: #f44336;
+        }
+        .botoes-ep button.remover:hover {
+            background-color: #d32f2f;
         }
     </style>
 </head>
@@ -98,9 +117,8 @@ $animeId = $ep['anime_id'];
 
     <div class="player">
         <?php
-        // Exibe o vídeo — se for link externo ou local
         if (strpos($link, '<iframe') !== false) {
-            echo $link; // iframe completo salvo no DB
+            echo $link;
         } elseif (filter_var($link, FILTER_VALIDATE_URL)) {
             echo "<iframe src='" . htmlspecialchars($link) . "' allowfullscreen></iframe>";
         } else {
@@ -109,6 +127,58 @@ $animeId = $ep['anime_id'];
         ?>
     </div>
 
+    <div class="botoes-ep">
+        <button id="btnAssistir">Assistir Depois!</button>
+        <button id="btnCompletar" class="remover">Anime Completado!</button>
+    </div>
+
     <a href="anime.php?id=<?= urlencode($animeId) ?>">&#8592; Voltar para anime</a>
+
+<script>
+  // Chave do localStorage separada por usuário para não misturar listas
+  const userId = <?= json_encode($idUsuario) ?>;
+  const localStorageKey = `animeAssistindo_${userId}`;
+
+  const animeId = <?= json_encode($animeId) ?>;
+  const epId = <?= json_encode($idEp) ?>;
+  const epNumero = <?= json_encode($numero) ?>;
+
+  function carregarAssistindo() {
+    const json = localStorage.getItem(localStorageKey);
+    return json ? JSON.parse(json) : [];
+  }
+
+  function salvarAssistindo(lista) {
+    localStorage.setItem(localStorageKey, JSON.stringify(lista));
+  }
+
+  document.getElementById('btnAssistir').addEventListener('click', () => {
+    let lista = carregarAssistindo();
+
+    const index = lista.findIndex(a => a.idAnime === animeId);
+
+    const animeObj = {
+      idAnime: animeId,
+      idEp: epId,
+      episodio: epNumero
+    };
+
+    if (index !== -1) {
+      lista[index] = animeObj; // atualiza o episódio
+    } else {
+      lista.push(animeObj);
+    }
+
+    salvarAssistindo(lista);
+    alert(`Marcado para assistir depois: Ep ${epNumero}`);
+  });
+
+  document.getElementById('btnCompletar').addEventListener('click', () => {
+    let lista = carregarAssistindo();
+    lista = lista.filter(a => a.idAnime !== animeId);
+    salvarAssistindo(lista);
+    alert(`Anime removido da lista de assistindo.`);
+  });
+</script>
 </body>
 </html>
