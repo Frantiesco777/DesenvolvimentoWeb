@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Conexão com banco
+// Conexão com banco (caso precise para outras consultas, pode manter)
 $host = "localhost";
 $db   = "animexone";
 $user = "root";
@@ -19,24 +19,13 @@ if ($conn->connect_error) {
 // Recupera usuário da sessão
 $usuarioSessao = $_SESSION['usuario'] ?? null;
 
-if ($usuarioSessao) {
-    $sql = $conn->prepare("SELECT nome, email, imagem_perfil FROM usuarios WHERE nome = ?");
-    $sql->bind_param("s", $usuarioSessao);
-    $sql->execute();
-    $result = $sql->get_result();
-
-    if ($result && $result->num_rows === 1) {
-        $usuario = $result->fetch_assoc();
-        if (empty($usuario['imagem_perfil'])) {
-            $usuario['imagem_perfil'] = 'imagens/usuario_padrao.jpg';
-        }
-    } else {
-        $usuario = [
-            "nome" => "Usuário",
-            "email" => "email@usuario.com",
-            "imagem_perfil" => "imagens/usuario_padrao.jpg"
-        ];
-    }
+if ($usuarioSessao && isset($usuarioSessao['nome'])) {
+    // Usa os dados da sessão diretamente
+    $usuario = [
+        "nome" => $usuarioSessao['nome'],
+        "email" => $usuarioSessao['email'] ?? "",
+        "imagem_perfil" => $usuarioSessao['imagem_perfil'] ?? "imagens/usuario_padrao.jpg"
+    ];
 } else {
     $usuario = [
         "nome" => "Visitante",
@@ -44,8 +33,6 @@ if ($usuarioSessao) {
         "imagem_perfil" => "imagens/usuario_padrao.jpg"
     ];
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -75,24 +62,30 @@ if ($usuarioSessao) {
           </div>
           <div class="submenu user-submenu">
             <p id="userEmail"><?php echo htmlspecialchars($usuario['email']); ?></p>
+            <?php if ($usuarioSessao): ?>
             <form method="POST" action="logout.php" style="margin:0;">
               <button type="submit" id="logoutBtn" class="btn-logout">Logout</button>
             </form>
             <button id="editProfileBtn" class="btn-edit-profile">Editar perfil</button>
+            <?php else: ?>
+            <a href="index.php">Login</a>
+            <?php endif; ?>
           </div>
         </div>
 
         <a href="site.php">Home</a>
         <a href="./generos/lancamentos.php">Lançamentos</a>
+        <a href="./filmes.php">Filmes</a>
+        <a href="./mangas.php">Mangás</a>
         <a href="./generos/assinatura.php">Assinatura</a>
 
         <div class="dropdown">
-          <a href="#">Gênero</a>
+          <a href="">Gênero</a>
           <div class="submenu">
             <a href="./shounen.php">Shounen</a>
             <a href="./comedia.php">Comédia</a>
-            <a href="./generos/romance.php">Romance</a>
-            <a href="./generos/seinen.php">Seinen</a>
+            <a href="./romance.php">Romance</a>
+            <a href="./seinen.php">Seinen</a>
             <a href="./generos/mecha.php">Mecha</a>
             <a href="./generos/terror.php">Terror</a>
             <a href="./generos/isekai.php">Isekai</a>

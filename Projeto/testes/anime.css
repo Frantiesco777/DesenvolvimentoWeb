@@ -109,10 +109,13 @@ body {
   text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
 }
 
+/* Temporadas e episódios */
 .temporadas {
   max-width: 900px;
   margin: 0 auto 60px;
-  padding: 0 15px;
+  padding: 20px;
+  background-color: #1e1e1e;
+  border-radius: 10px;
 }
 
 .temporadas h2 {
@@ -188,7 +191,7 @@ input[type="checkbox"]:checked + label + .episodios {
   text-decoration: underline;
 }
 
-/* Responsividade */
+/* Responsivo */
 @media (max-width: 768px) {
   .container.sinopse-content {
     flex-direction: column;
@@ -204,4 +207,33 @@ input[type="checkbox"]:checked + label + .episodios {
   .temporadas {
     padding: 0 10px;
   }
+}
+
+.episodios {
+  list-style: none;
+  margin: 0;
+  padding-left: 10px;
+  display: none;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.episodios li {
+  margin: 6px 0;
+}
+
+.episodios li a {
+  background-color: #292929;
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: #f1c40f;
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid #f1c40f;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.episodios li a:hover {
+  background-color: #f1c40f;
+  color: #1a1a1a;
 }

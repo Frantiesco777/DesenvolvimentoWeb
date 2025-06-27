@@ -7,6 +7,10 @@ $sucesso = '';
 $mostrarPopupLogin = false;
 $emailCadastrado = '';
 
+// Verifica se o usuário está logado e se é admin
+$usuarioLogado = isset($_SESSION['usuario']) && is_array($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
+$ehAdmin = $usuarioLogado && isset($usuarioLogado['email']) && $usuarioLogado['email'] === 'admin@admin.com';
+
 if (isset($_SESSION['erro'])) {
     $erro = $_SESSION['erro'];
     unset($_SESSION['erro']);
@@ -20,7 +24,7 @@ if (isset($_SESSION['showLogin'])) {
 if (isset($_SESSION['sucesso'])) {
     $sucesso = $_SESSION['sucesso'];
     unset($_SESSION['sucesso']);
-    $mostrarPopupLogin = true; // abrir popup login ao mostrar sucesso
+    $mostrarPopupLogin = true;
 }
 
 if (isset($_SESSION['email_cadastrado'])) {
@@ -44,6 +48,9 @@ if (isset($_SESSION['email_cadastrado'])) {
       <a href="sobre.php">Sobre</a>
       <a href="serviços.php">Serviços</a>
       <a href="contato.php">Contato</a>
+      <?php if ($ehAdmin): ?>
+        <a href="cadastro.php" style="color: #f9a825; font-weight: bold;">Cadastrar Anime</a>
+      <?php endif; ?>
       <button class="botao_login">Login</button>
     </nav>
   </header>
@@ -149,7 +156,6 @@ if (isset($_SESSION['email_cadastrado'])) {
   <script src="script.js"></script>
 
   <script>
-    // Controla a abertura dos popups baseado nas flags PHP
     document.addEventListener('DOMContentLoaded', () => {
       const wrapper = document.querySelector('.wrapper');
       if (<?php echo $mostrarPopupLogin ? 'true' : 'false'; ?>) {
@@ -162,7 +168,7 @@ if (isset($_SESSION['email_cadastrado'])) {
         wrapper.classList.remove('active-popup', 'active', 'active-reset');
       }
 
-      // Mensagem de erro desaparece após 2 segundos
+      // Mensagens desaparecem
       const msgErro = document.getElementById('msgErro');
       if (msgErro) {
         setTimeout(() => {
@@ -171,7 +177,6 @@ if (isset($_SESSION['email_cadastrado'])) {
         }, 2000);
       }
 
-      // Mensagem de sucesso desaparece após 2 segundos
       const msgSucesso = document.getElementById('msgSucesso');
       if (msgSucesso) {
         setTimeout(() => {
