@@ -1,6 +1,7 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+session_start();
+if (!isset($_SESSION['usuario']['id'])) {
+    die("Usuário não autenticado.");
 }
 
 $host = "localhost";
@@ -8,16 +9,11 @@ $db   = "animexone";
 $user = "root";
 $pass = "";
 $conn = new mysqli($host, $user, $pass, $db);
-
 if ($conn->connect_error) {
     die("Erro na conexão: " . $conn->connect_error);
 }
 
-$usuarioSessao = $_SESSION['usuario'] ?? null;
-
-if (!$usuarioSessao) {
-    die("Usuário não autenticado.");
-}
+$usuarioId = $_SESSION['usuario']['id'];
 
 if (isset($_POST['editName'], $_POST['editEmail'])) {
     $novoNome = $_POST['editName'];
@@ -25,49 +21,54 @@ if (isset($_POST['editName'], $_POST['editEmail'])) {
 
     $imagemPerfil = null;
 
-    // Verifica se foi enviado arquivo de imagem
+    // Verifica se veio imagem no upload
     if (isset($_FILES['editImage']) && $_FILES['editImage']['error'] === UPLOAD_ERR_OK) {
-        $extensoesPermitidas = ['jpg', 'jpeg', 'png', 'gif'];
         $arquivoTmp = $_FILES['editImage']['tmp_name'];
         $nomeOriginal = $_FILES['editImage']['name'];
         $extensao = strtolower(pathinfo($nomeOriginal, PATHINFO_EXTENSION));
+        $extensoesPermitidas = ['jpg', 'jpeg', 'png', 'gif'];
 
-        if (in_array($extensao, $extensoesPermitidas)) {
-            $novoNomeArquivo = uniqid('perfil_', true) . '.' . $extensao;
-            $pastaUploads = 'uploads/';
+        if (!in_array($extensao, $extensoesPermitidas)) {
+            die("Tipo de imagem não permitido.");
+        }
 
-            // Cria pasta uploads se não existir
-            if (!is_dir($pastaUploads)) {
-                mkdir($pastaUploads, 0755, true);
-            }
+        // Cria pasta uploads se não existir
+        $pastaUploads = 'uploads/';
+        if (!is_dir($pastaUploads)) {
+            mkdir($pastaUploads, 0755, true);
+        }
 
-            $destino = $pastaUploads . $novoNomeArquivo;
+        // Gera nome único para a imagem
+        $novoNomeArquivo = uniqid('perfil_', true) . '.' . $extensao;
+        $destino = $pastaUploads . $novoNomeArquivo;
 
-            if (move_uploaded_file($arquivoTmp, $destino)) {
-                $imagemPerfil = $destino; // caminho para salvar no DB
-            } else {
-                echo "Erro ao mover arquivo de imagem.";
-            }
+        if (move_uploaded_file($arquivoTmp, $destino)) {
+            $imagemPerfil = $destino;
         } else {
-            echo "Tipo de arquivo não permitido. Use jpg, png ou gif.";
+            die("Erro ao salvar arquivo de imagem.");
         }
     }
 
-    // Atualiza os dados no banco
-    if ($imagemPerfil) {
-        $sql = $conn->prepare("UPDATE usuarios SET nome = ?, email = ?, imagem_perfil = ? WHERE nome = ?");
-        $sql->bind_param("ssss", $novoNome, $novoEmail, $imagemPerfil, $usuarioSessao);
+    if ($imagemPerfil !== null) {
+        $sql = $conn->prepare("UPDATE usuarios SET nome = ?, email = ?, imagem_perfil = ? WHERE id = ?");
+        $sql->bind_param("sssi", $novoNome, $novoEmail, $imagemPerfil, $usuarioId);
     } else {
-        $sql = $conn->prepare("UPDATE usuarios SET nome = ?, email = ? WHERE nome = ?");
-        $sql->bind_param("sss", $novoNome, $novoEmail, $usuarioSessao);
+        $sql = $conn->prepare("UPDATE usuarios SET nome = ?, email = ? WHERE id = ?");
+        $sql->bind_param("ssi", $novoNome, $novoEmail, $usuarioId);
     }
 
     if ($sql->execute()) {
-        $_SESSION['usuario'] = $novoNome; // Atualiza nome na sessão
+        $_SESSION['usuario']['nome'] = $novoNome;
+        $_SESSION['usuario']['email'] = $novoEmail;
+
+        if ($imagemPerfil !== null) {
+            $_SESSION['usuario']['imagem_perfil'] = $imagemPerfil;
+        }
+
         header("Location: site.php?perfil=atualizado");
         exit;
     } else {
-        echo "Erro ao atualizar perfil.";
+        echo "Erro ao atualizar perfil: " . $sql->error;
     }
 } else {
     echo "Dados inválidos.";

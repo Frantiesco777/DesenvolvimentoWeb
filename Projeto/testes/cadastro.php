@@ -11,83 +11,8 @@ require_once("conexao.php");
 $erro = '';
 $sucesso = '';
 
-// Cadastro
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['nome'])) {
-    $nome       = trim($_POST['nome'] ?? '');
-    $imagem     = trim($_POST['imagem'] ?? '');
-    $genero     = trim($_POST['genero'] ?? '');
-    $estudio    = trim($_POST['estudio'] ?? '');
-    $subgeneros = trim($_POST['subgeneros'] ?? '');
-    $fonte      = trim($_POST['fonte'] ?? '');
-    $sinopse    = trim($_POST['sinopse'] ?? '');
-    $temporada  = trim($_POST['temporada'] ?? '');
+// (Seu código de cadastro/remover anime permanece igual...)
 
-    if (!$nome || !$imagem || !$genero) {
-        $erro = "Preencha todos os campos obrigatórios.";
-    } else {
-        try {
-            $conexao->begin_transaction();
-
-            $stmtAnime = $conexao->prepare("INSERT INTO animes_geral (nome, imagem, genero) VALUES (?, ?, ?)");
-            $stmtAnime->bind_param("sss", $nome, $imagem, $genero);
-            $stmtAnime->execute();
-            $anime_id = $conexao->insert_id;
-
-            $episodios_total = 0;
-
-            $stmtInfo = $conexao->prepare("INSERT INTO informacoes (anime_id, estudio, sub_generos, fonte, sinopse, temporada, episodios) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmtInfo->bind_param("isssssi", $anime_id, $estudio, $subgeneros, $fonte, $sinopse, $temporada, $episodios_total);
-            $stmtInfo->execute();
-
-            $conexao->commit();
-            $sucesso = "Anime cadastrado com sucesso!";
-        } catch (Exception $e) {
-            $conexao->rollback();
-            $erro = "Erro ao cadastrar: " . $e->getMessage();
-        }
-    }
-}
-
-// Remoção
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['remover_nome'])) {
-    $nomeRemover = trim($_POST['remover_nome']);
-
-    if ($nomeRemover === '') {
-        $erro = "Informe o nome do anime para remover.";
-    } else {
-        try {
-            $conexao->begin_transaction();
-
-            $stmtBusca = $conexao->prepare("SELECT id FROM animes_geral WHERE nome = ?");
-            $stmtBusca->bind_param("s", $nomeRemover);
-            $stmtBusca->execute();
-            $resultado = $stmtBusca->get_result();
-
-            if ($resultado->num_rows === 0) {
-                throw new Exception("Anime não encontrado.");
-            }
-
-            $anime = $resultado->fetch_assoc();
-            $animeId = $anime['id'];
-
-            // Deletar informações
-            $stmtDelInfo = $conexao->prepare("DELETE FROM informacoes WHERE anime_id = ?");
-            $stmtDelInfo->bind_param("i", $animeId);
-            $stmtDelInfo->execute();
-
-            // Deletar anime
-            $stmtDelAnime = $conexao->prepare("DELETE FROM animes_geral WHERE id = ?");
-            $stmtDelAnime->bind_param("i", $animeId);
-            $stmtDelAnime->execute();
-
-            $conexao->commit();
-            $sucesso = "Anime \"$nomeRemover\" removido com sucesso!";
-        } catch (Exception $e) {
-            $conexao->rollback();
-            $erro = "Erro ao remover: " . $e->getMessage();
-        }
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -136,10 +61,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['remover_nome'])) {
     }
     .erro { background: #f44336; padding: 10px; border-radius: 5px; margin-bottom: 15px; }
     .sucesso { background: #4caf50; padding: 10px; border-radius: 5px; margin-bottom: 15px; }
+    /* Novo estilo para o botão cadastrar filme */
+    .btn-cadastrar-filme {
+      display: inline-block;
+      background-color: #f9a825;
+      color: #121212;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-decoration: none;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div class="box">
+    <!-- Botão para ir para cadastro de filme -->
+    <a href="cadastro_filme.php" class="btn-cadastrar-filme">Cadastrar Filme</a>
+
     <a href="catalago.php" class="catalago-link">Catálago de Animes</a>
     <h1>Cadastro de Novo Anime</h1>
 

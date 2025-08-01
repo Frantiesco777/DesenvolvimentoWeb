@@ -1,52 +1,67 @@
 <?php
-// menu.php
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Conexão com banco (caso precise para outras consultas, pode manter)
+
+// Configurações do banco
 $host = "localhost";
 $db   = "animexone";
 $user = "root";
 $pass = "";
 $conn = new mysqli($host, $user, $pass, $db);
-
 if ($conn->connect_error) {
     die("Erro na conexão: " . $conn->connect_error);
 }
 
-// Recupera usuário da sessão
-$usuarioSessao = $_SESSION['usuario'] ?? null;
+// Dados padrão para visitante
+$usuario = [
+    "nome" => "Visitante",
+    "email" => "",
+    "imagem_perfil" => "imagens/usuario_padrao.jpg"
+];
 
-if ($usuarioSessao && isset($usuarioSessao['nome'])) {
-    // Usa os dados da sessão diretamente
-    $usuario = [
-        "nome" => $usuarioSessao['nome'],
-        "email" => $usuarioSessao['email'] ?? "",
-        "imagem_perfil" => $usuarioSessao['imagem_perfil'] ?? "imagens/usuario_padrao.jpg"
-    ];
-} else {
-    $usuario = [
-        "nome" => "Visitante",
-        "email" => "",
-        "imagem_perfil" => "imagens/usuario_padrao.jpg"
-    ];
+// Verifica se usuário está logado
+if (isset($_SESSION['usuario']['id'])) {
+    $usuarioId = $_SESSION['usuario']['id'];
+
+    $sql = $conn->prepare("SELECT nome, email, imagem_perfil FROM usuarios WHERE id = ?");
+    $sql->bind_param("i", $usuarioId);
+    $sql->execute();
+    $resultado = $sql->get_result();
+
+    if ($resultado && $resultado->num_rows > 0) {
+        $usuarioDB = $resultado->fetch_assoc();
+
+        // Ajusta o caminho da imagem para URL acessível
+        $imagemPerfil = $usuarioDB['imagem_perfil'];
+
+        // Se imagem não iniciar com http ou /, ajusta caminho base conforme seu projeto
+        if (!preg_match('/^(http|\/)/i', $imagemPerfil)) {
+            // Ajuste o caminho base aqui para a pasta raiz do seu projeto no servidor
+            $imagemPerfil = '/Fran/DesenvolvimentoWeb/Projeto/testes/' . $imagemPerfil;
+        }
+
+        $usuario = [
+            "nome" => $usuarioDB['nome'],
+            "email" => $usuarioDB['email'],
+            "imagem_perfil" => $imagemPerfil
+        ];
+    }
 }
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Menu AnimeXone</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Menu AnimeXone</title>
 
-  <!-- Cropper.js CSS -->
-  <link href="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.css" rel="stylesheet"/>
-
-  <!-- Seus estilos -->
-  <link rel="stylesheet" href="estilo-site.css" />
+<link href="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="estilo-site.css" />
 </head>
 <body>
 
@@ -62,7 +77,7 @@ if ($usuarioSessao && isset($usuarioSessao['nome'])) {
           </div>
           <div class="submenu user-submenu">
             <p id="userEmail"><?php echo htmlspecialchars($usuario['email']); ?></p>
-            <?php if ($usuarioSessao): ?>
+            <?php if (isset($_SESSION['usuario']['id'])): ?>
             <form method="POST" action="logout.php" style="margin:0;">
               <button type="submit" id="logoutBtn" class="btn-logout">Logout</button>
             </form>
@@ -129,7 +144,6 @@ if ($usuarioSessao && isset($usuarioSessao['nome'])) {
   </div>
 </header>
 
-<!-- Scripts -->
 <script src="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.js"></script>
 <script src="script-menu.js"></script>
 

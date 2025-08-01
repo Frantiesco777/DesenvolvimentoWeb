@@ -1,14 +1,7 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin'])) {
-    http_response_code(403);
-    exit;
-}
-
 require_once("conexao.php");
 
 if (!isset($_GET['temporada_id'])) {
-    http_response_code(400);
     echo json_encode([]);
     exit;
 }
@@ -27,3 +20,4 @@ while ($row = $result->fetch_assoc()) {
 
 header('Content-Type: application/json');
 echo json_encode($episodios);
+?>
