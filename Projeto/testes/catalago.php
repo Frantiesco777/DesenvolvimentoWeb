@@ -7,20 +7,121 @@ if (!isset($_SESSION['admin'])) {
 
 require_once("conexao.php");
 
-// Funções adicionarTemporada, removerTemporada, contarTemporadas, contarEpisodios...
-// (Suponho que já estão definidas no arquivo ou você pode me pedir para incluir)
+// Funções para contar temporadas e episódios
+function contarTemporadas($conexao, $anime_id) {
+    $stmt = $conexao->prepare("SELECT COUNT(*) AS total FROM temporadas_animes WHERE anime_id = ?");
+    $stmt->bind_param("i", $anime_id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $total = 0;
+    if ($res && $row = $res->fetch_assoc()) {
+        $total = $row['total'];
+    }
+    $stmt->close();
+    return $total;
+}
 
-// Buscar animes (com dados da tabela informacoes)
+function contarEpisodios($conexao, $anime_id) {
+    $stmt = $conexao->prepare("
+        SELECT COUNT(e.id) AS total
+        FROM episodios e
+        JOIN temporadas_animes t ON e.temporada_id = t.id
+        WHERE t.anime_id = ?
+    ");
+    $stmt->bind_param("i", $anime_id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $total = 0;
+    if ($res && $row = $res->fetch_assoc()) {
+        $total = $row['total'];
+    }
+    $stmt->close();
+    return $total;
+}
+
+// Processar ações de formulário (adicionar/remover temporada)
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!empty($_POST['acao'])) {
+        $acao = $_POST['acao'];
+
+        if ($acao === 'adicionar_temporada' && !empty($_POST['anime_id']) && !empty($_POST['qtd_eps'])) {
+            $anime_id = intval($_POST['anime_id']);
+            $qtd_eps = intval($_POST['qtd_eps']);
+            if ($qtd_eps > 0) {
+                // Obter o próximo número da temporada
+                $stmt = $conexao->prepare("SELECT MAX(numero) AS max_num FROM temporadas_animes WHERE anime_id = ?");
+                $stmt->bind_param("i", $anime_id);
+                $stmt->execute();
+                $res = $stmt->get_result();
+                $max_num = 0;
+                if ($res && $row = $res->fetch_assoc()) {
+                    $max_num = intval($row['max_num']);
+                }
+                $stmt->close();
+
+                $novo_numero = $max_num + 1;
+                $nome_temporada = "Temporada $novo_numero";
+
+                // Inserir temporada
+                $stmt = $conexao->prepare("INSERT INTO temporadas_animes (anime_id, numero, nome) VALUES (?, ?, ?)");
+                $stmt->bind_param("iis", $anime_id, $novo_numero, $nome_temporada);
+                if ($stmt->execute()) {
+                    $temporada_id = $stmt->insert_id;
+                    $stmt->close();
+
+                    // Inserir episódios com número sequencial
+                    $stmt = $conexao->prepare("INSERT INTO episodios (temporada_id, numero, conteudo) VALUES (?, ?, ?)");
+                    $conteudo_padrao = "Vídeo padrão"; // Ajuste aqui se quiser outro conteúdo padrão
+                    for ($i = 1; $i <= $qtd_eps; $i++) {
+                        $stmt->bind_param("iis", $temporada_id, $i, $conteudo_padrao);
+                        $stmt->execute();
+                    }
+                    $stmt->close();
+                    $_SESSION['msg_sucesso'] = "Temporada adicionada com $qtd_eps episódios.";
+                } else {
+                    $_SESSION['msg_erro'] = "Erro ao adicionar temporada: " . $stmt->error;
+                }
+            } else {
+                $_SESSION['msg_erro'] = "Quantidade de episódios inválida.";
+            }
+        }
+
+        if ($acao === 'remover_temporada' && !empty($_POST['temporada_id'])) {
+            $temporada_id = intval($_POST['temporada_id']);
+
+            // Remover episódios da temporada
+            $stmt = $conexao->prepare("DELETE FROM episodios WHERE temporada_id = ?");
+            $stmt->bind_param("i", $temporada_id);
+            $stmt->execute();
+            $stmt->close();
+
+            // Remover temporada
+            $stmt = $conexao->prepare("DELETE FROM temporadas_animes WHERE id = ?");
+            $stmt->bind_param("i", $temporada_id);
+            if ($stmt->execute()) {
+                $_SESSION['msg_sucesso'] = "Temporada removida com sucesso.";
+            } else {
+                $_SESSION['msg_erro'] = "Erro ao remover temporada: " . $stmt->error;
+            }
+            $stmt->close();
+        }
+
+        // Redirecionar para evitar resubmissão do formulário
+        header("Location: catalago.php");
+        exit;
+    }
+}
+
+// Consulta para buscar animes com estúdio, formato, diretor e ano_lancamento na tabela informacoes
 $sqlAnimes = "
-    SELECT a.id, a.nome, a.genero, i.estudio, i.formato
+    SELECT a.id, a.nome, a.genero, i.estudio, i.formato, i.diretor, i.ano_lancamento
     FROM animes_geral a
     LEFT JOIN informacoes i ON a.id = i.anime_id
-    WHERE i.formato = 'anime'
     ORDER BY a.nome ASC
 ";
 $animes = $conexao->query($sqlAnimes);
 
-// Buscar filmes (somente tabela filmes)
+// Consulta para buscar filmes
 $sqlFilmes = "
     SELECT id, nome, diretor, ano_lancamento, formato, estudio
     FROM filmes
@@ -28,6 +129,7 @@ $sqlFilmes = "
 ";
 $filmes = $conexao->query($sqlFilmes);
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -55,49 +157,37 @@ $filmes = $conexao->query($sqlFilmes);
         background: #f9a825;
         box-shadow: 0 0 8px #f9a825;
     }
-    .form-popup, .modal-temporadas {
-        display: none;
-        position: fixed;
-        z-index: 999;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        background: #1e1e1e;
-        padding: 20px;
-        border: 2px solid #f9a825;
-        border-radius: 10px;
-        max-height: 80vh;
-        overflow-y: auto;
-        width: 400px;
+    form {
+        display: inline;
     }
-    input[type=number] {
-        padding: 8px;
-        width: 100%;
-        background: #333;
-        color: #fff;
-        border: 1px solid #666;
-        border-radius: 4px;
-        font-size: 1rem;
-    }
-    h2, h3 {
-        color: #fbc02d;
-        margin: 0 0 15px 0;
-    }
-    .close-btn {
-        background: #d32f2f;
-        float: right;
-        font-weight: bold;
-        border: none;
-        padding: 4px 10px;
-        border-radius: 5px;
-        cursor: pointer;
-        color: #fff;
+    .btn-voltar {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 8px 16px;
+      background: #f9a825;
+      color: #121212;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 5px;
     }
 </style>
 </head>
 <body>
 
+<a href="cadastro.php" class="btn-voltar">← Voltar para Cadastro</a>
+
 <h1>Catálogo de Animes e Filmes</h1>
+
+<?php
+if (!empty($_SESSION['msg_sucesso'])) {
+    echo '<p style="color: #4caf50;">' . htmlspecialchars($_SESSION['msg_sucesso']) . '</p>';
+    unset($_SESSION['msg_sucesso']);
+}
+if (!empty($_SESSION['msg_erro'])) {
+    echo '<p style="color: #f44336;">' . htmlspecialchars($_SESSION['msg_erro']) . '</p>';
+    unset($_SESSION['msg_erro']);
+}
+?>
 
 <table>
     <thead>
@@ -108,115 +198,56 @@ $filmes = $conexao->query($sqlFilmes);
             <th>Diretor</th>
             <th>Ano</th>
             <th>Formato</th>
+            <th>Total Temporadas</th>
+            <th>Total Episódios</th>
             <th>Ações</th>
         </tr>
     </thead>
     <tbody>
         <?php
-        // Mostrar animes com botões
+        // Mostrar animes
         while ($row = $animes->fetch_assoc()) {
+            $idAnime = $row['id'];
+            $totalTemporadas = contarTemporadas($conexao, $idAnime);
+            $totalEpisodios = contarEpisodios($conexao, $idAnime);
+
             echo "<tr>";
             echo "<td>" . htmlspecialchars($row['nome']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['genero']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['genero'] ?? '—') . "</td>";
             echo "<td>" . htmlspecialchars($row['estudio'] ?? '—') . "</td>";
-            echo "<td>—</td>";
-            echo "<td>—</td>";
-            echo "<td>Anime</td>";
+            echo "<td>" . htmlspecialchars($row['diretor'] ?? '—') . "</td>";
+            echo "<td>" . htmlspecialchars($row['ano_lancamento'] ?? '—') . "</td>";
+            echo "<td>" . htmlspecialchars($row['formato'] ?? 'Anime') . "</td>";
+            echo "<td>$totalTemporadas</td>";
+            echo "<td>$totalEpisodios</td>";
             echo "<td>
-                <button onclick='abrirFormAdicionar({$row['id']})'>Adicionar Temporada</button>
-                <button onclick='abrirModalTemporadas({$row['id']}, \"" . addslashes(htmlspecialchars($row['nome'])) . "\")'>Gerenciar Temporadas</button>
+                <form method='POST' style='display:inline-block; margin:0 3px;'>
+                    <input type='hidden' name='acao' value='adicionar_temporada'>
+                    <input type='hidden' name='anime_id' value='$idAnime'>
+                    <input type='number' name='qtd_eps' min='1' placeholder='Qtd episódios' required style='width:90px; padding:5px; border-radius:4px; border:none;'>
+                    <button type='submit' title='Adicionar Temporada'>+</button>
+                </form>
             </td>";
             echo "</tr>";
         }
 
-        // Mostrar filmes sem botões
+        // Mostrar filmes
         while ($row = $filmes->fetch_assoc()) {
             echo "<tr>";
             echo "<td>" . htmlspecialchars($row['nome']) . "</td>";
-            echo "<td>—</td>";
+            echo "<td>—</td>"; // gênero não armazenado para filmes
             echo "<td>" . htmlspecialchars($row['estudio'] ?? '—') . "</td>";
             echo "<td>" . htmlspecialchars($row['diretor'] ?? '—') . "</td>";
             echo "<td>" . htmlspecialchars($row['ano_lancamento'] ?? '—') . "</td>";
-            echo "<td>Filme</td>";
+            echo "<td>" . htmlspecialchars($row['formato'] ?? 'Filme') . "</td>";
+            echo "<td>—</td>"; // Temporadas não aplicam para filmes
+            echo "<td>—</td>"; // Episódios não aplicam para filmes
             echo "<td>—</td>"; // Sem ações para filmes
             echo "</tr>";
         }
         ?>
     </tbody>
 </table>
-
-<!-- Formulário para adicionar temporada -->
-<div class="form-popup" id="formAdicionarTemporada">
-    <h3>Adicionar Temporada</h3>
-    <form method="POST">
-        <input type="hidden" name="acao" value="adicionar_temporada">
-        <input type="hidden" name="anime_id" id="anime_id">
-        <label>Quantidade de episódios:</label>
-        <input type="number" name="qtd_eps" min="1" required>
-        <br><br>
-        <button type="submit">Adicionar</button>
-        <button type="button" onclick="fecharFormAdicionar()">Cancelar</button>
-    </form>
-</div>
-
-<!-- Modal para gerenciar temporadas -->
-<div class="modal-temporadas" id="modalTemporadas">
-    <h3>Temporadas de <span id="nomeAnimeModal"></span></h3>
-    <button class="close-btn" onclick="fecharModalTemporadas()">X</button>
-    <div id="listaTemporadas">Carregando...</div>
-</div>
-
-<script>
-function abrirFormAdicionar(animeId) {
-    document.getElementById('anime_id').value = animeId;
-    document.getElementById('formAdicionarTemporada').style.display = 'block';
-}
-function fecharFormAdicionar() {
-    document.getElementById('formAdicionarTemporada').style.display = 'none';
-}
-
-function abrirModalTemporadas(animeId, animeNome) {
-    document.getElementById('nomeAnimeModal').textContent = animeNome;
-    const modal = document.getElementById('modalTemporadas');
-    const lista = document.getElementById('listaTemporadas');
-    lista.innerHTML = 'Carregando...';
-    modal.style.display = 'block';
-
-    fetch('buscar_temporadas.php?anime_id=' + animeId)
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                lista.innerHTML = '<p style="color:red;">Erro: ' + data.error + '</p>';
-                return;
-            }
-            if (!data.temporadas || data.temporadas.length === 0) {
-                lista.innerHTML = '<p>Não há temporadas para este anime.</p>';
-                return;
-            }
-            let html = '';
-            data.temporadas.forEach(t => {
-                let nomeTemp = t.nome ? t.nome : ('Temporada ' + t.numero);
-                html += `
-                <div class="temporada-item" style="margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
-                    <span>${nomeTemp}</span>
-                    <form method="POST" style="margin:0;" onsubmit="return confirm('Confirma remover a temporada?');">
-                        <input type="hidden" name="acao" value="remover_temporada">
-                        <input type="hidden" name="temporada_id" value="${t.id}">
-                        <button type="submit" style="background:#d32f2f; color:#fff; border-radius:4px; padding:4px 8px;">Remover</button>
-                    </form>
-                </div>`;
-            });
-            lista.innerHTML = html;
-        })
-        .catch(() => {
-            lista.innerHTML = '<p style="color:red;">Erro ao carregar temporadas.</p>';
-        });
-}
-
-function fecharModalTemporadas() {
-    document.getElementById('modalTemporadas').style.display = 'none';
-}
-</script>
 
 </body>
 </html>

@@ -29,7 +29,7 @@ $nome = $anime['nome'];
 $imagem = $anime['imagem'];
 $genero = $anime['genero'];
 
-// Buscar informações adicionais
+// Buscar informações adicionais incluindo diretor e ano_lancamento
 $sqlInfo = $conexao->prepare("SELECT * FROM informacoes WHERE anime_id = ?");
 $sqlInfo->bind_param("i", $idAnime);
 $sqlInfo->execute();
@@ -37,17 +37,21 @@ $resultInfo = $sqlInfo->get_result();
 
 if ($resultInfo->num_rows === 1) {
     $info = $resultInfo->fetch_assoc();
-    $temporada = $info['temporada'];
-    $sub_generos = $info['sub_generos'];
-    $estudio = $info['estudio'];
-    $fonte = $info['fonte'];
-    $sinopse = $info['sinopse'];
+    $temporada = $info['temporada'] ?? 'Indefinida';
+    $sub_generos = $info['sub_generos'] ?? 'N/A';
+    $estudio = $info['estudio'] ?? 'Desconhecido';
+    $fonte = $info['fonte'] ?? 'N/A';
+    $sinopse = $info['sinopse'] ?? 'Sinopse não disponível.';
+    $diretor = $info['diretor'] ?? 'Desconhecido';
+    $ano_lancamento = $info['ano_lancamento'] ?? 'Indefinido';
 } else {
     $temporada = 'Indefinida';
     $sub_generos = 'N/A';
     $estudio = 'Desconhecido';
     $fonte = 'N/A';
     $sinopse = 'Sinopse não disponível.';
+    $diretor = 'Desconhecido';
+    $ano_lancamento = 'Indefinido';
 }
 
 // Buscar total de episódios reais do anime
@@ -166,6 +170,8 @@ while ($temp = $resultTemporadas->fetch_assoc()) {
                     <li><strong>Gênero:</strong> <?= htmlspecialchars($genero) ?></li>
                     <li><strong>Subgêneros:</strong> <?= htmlspecialchars($sub_generos) ?></li>
                     <li><strong>Estúdio:</strong> <?= htmlspecialchars($estudio) ?></li>
+                    <li><strong>Diretor:</strong> <?= htmlspecialchars($diretor) ?></li>
+                    <li><strong>Ano de Lançamento:</strong> <?= htmlspecialchars($ano_lancamento) ?></li>
                     <li><strong>Fonte:</strong> <?= htmlspecialchars($fonte) ?></li>
                     <li><strong>Total de Episódios:</strong> <?= htmlspecialchars($episodios) ?></li>
                 </ul>

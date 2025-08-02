@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01/08/2025 às 03:50
+-- Tempo de geração: 02/08/2025 às 02:39
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -43,7 +43,10 @@ INSERT INTO `animes_geral` (`id`, `nome`, `imagem`, `criado_em`, `genero`) VALUE
 (53, 'Dragon Ball Z', 'imagens/dragon_ball_z.png', '2025-07-31 23:46:04', 'Shounen'),
 (55, 'Kimetsu no Yaiba', 'imagens/kimetsu.jpg', '2025-08-01 00:13:50', 'Shounen'),
 (56, 'Chainsaw Man', 'imagens/chainsaw_man.jpg', '2025-08-01 00:19:26', 'Shounen'),
-(57, 'Darling in the Franxx', 'imagens/Darling_in_the_Franxx.jpg', '2025-08-01 00:22:52', 'Romance');
+(57, 'Darling in the Franxx', 'imagens/Darling_in_the_Franxx.jpg', '2025-08-01 00:22:52', 'Romance'),
+(58, 'Gachiakuta', 'imagens/gachiakuta.jpg', '2025-08-01 23:03:47', 'Shounen'),
+(61, 'Sono Bisque Doll', 'imagens/sono_bisque_doll.png', '2025-08-01 23:57:54', 'Romance'),
+(62, 'Boruto: Naruto Next Generations', 'imagens/boruto.png', '2025-08-02 00:03:01', 'Shounen');
 
 -- --------------------------------------------------------
 
@@ -453,7 +456,31 @@ INSERT INTO `episodios` (`id`, `temporada_id`, `numero`, `link`, `conteudo`) VAL
 (394, 18, 21, NULL, ''),
 (395, 18, 22, NULL, ''),
 (396, 18, 23, NULL, ''),
-(397, 18, 24, NULL, '');
+(397, 18, 24, NULL, ''),
+(408, 21, 1, NULL, 'Vídeo padrão'),
+(409, 21, 2, NULL, 'Vídeo padrão'),
+(410, 21, 3, NULL, 'Vídeo padrão'),
+(411, 21, 4, NULL, 'Vídeo padrão'),
+(412, 21, 5, NULL, 'Vídeo padrão'),
+(413, 21, 6, NULL, 'Vídeo padrão'),
+(414, 21, 7, NULL, 'Vídeo padrão'),
+(415, 21, 8, NULL, 'Vídeo padrão'),
+(416, 21, 9, NULL, 'Vídeo padrão'),
+(417, 21, 10, NULL, 'Vídeo padrão'),
+(418, 21, 11, NULL, 'Vídeo padrão'),
+(419, 21, 12, NULL, 'Vídeo padrão'),
+(420, 21, 13, NULL, 'Vídeo padrão'),
+(421, 21, 14, NULL, 'Vídeo padrão'),
+(422, 21, 15, NULL, 'Vídeo padrão'),
+(423, 21, 16, NULL, 'Vídeo padrão'),
+(424, 21, 17, NULL, 'Vídeo padrão'),
+(425, 21, 18, NULL, 'Vídeo padrão'),
+(426, 21, 19, NULL, 'Vídeo padrão'),
+(427, 21, 20, NULL, 'Vídeo padrão'),
+(428, 21, 21, NULL, 'Vídeo padrão'),
+(429, 21, 22, NULL, 'Vídeo padrão'),
+(430, 21, 23, NULL, 'Vídeo padrão'),
+(431, 21, 24, NULL, 'Vídeo padrão');
 
 -- --------------------------------------------------------
 
@@ -498,18 +525,23 @@ CREATE TABLE `informacoes` (
   `episodios` int(11) DEFAULT NULL,
   `sinopse` text DEFAULT NULL,
   `temporada` varchar(255) DEFAULT NULL,
-  `formato` varchar(100) NOT NULL
+  `formato` varchar(100) NOT NULL,
+  `diretor` varchar(255) DEFAULT NULL,
+  `ano_lancamento` year(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `informacoes`
 --
 
-INSERT INTO `informacoes` (`id`, `anime_id`, `estudio`, `sub_generos`, `fonte`, `episodios`, `sinopse`, `temporada`, `formato`) VALUES
-(49, 53, 'Toei Animation', 'Ação, Aventura, Comédia, Fantasia', 'Mangá', 0, 'Cinco anos após vencer o torneio de Artes Marciais, Gokuu agora vive uma vida pacífica com sua esposa e filho. Isso muda, no entanto, com a chegada de um misterioso inimigo chamado Raditz, que se apresenta como o irmão há muito perdido de Gokuu. Ele revela que Gokuu é descendente da outrora poderosa, mas agora praticamente extinta raça Saiyajin, cujo planeta natal foi aniquilado. Quando foi enviado à Terra ainda bebê, o único propósito de Gokuu era conquistar e destruir o planeta; mas após sofrer amnésia devido a um ferimento na cabeça, sua natureza violenta e selvagem mudou, e em vez disso foi criado como um menino gentil e bem-educado, agora lutando para proteger os outros.', 'Primavera', 'Anime'),
-(51, 55, 'ufotable', 'Ação, Premiado, Sobrenatural', 'Mangá', 0, 'Desde a morte de seu pai, o fardo de sustentar a família recai sobre os ombros de Tanjirou Kamado. Apesar de viverem na miséria em uma montanha remota, a família Kamado consegue desfrutar de uma vida relativamente pacífica e feliz. Um dia, Tanjirou decide ir até a aldeia local para ganhar algum dinheiro vendendo carvão. No caminho de volta, a noite cai, forçando Tanjirou a se abrigar na casa de um homem estranho, que o avisa da existência de demônios carnívoros que espreitam na floresta à noite.', 'Primavera', 'Anime'),
-(52, 56, 'MAPPA', 'Ação, Fantasia', 'Mangá', 0, 'Denji é privado de uma vida normal de adolescente, restando-lhe apenas a dívida avassaladora de seu pai caloteiro. Sua única companhia é seu animal de estimação, o demônio da motosserra Pochita, com quem ele mata demônios por dinheiro que inevitavelmente acaba nos bolsos da yakuza. Tudo o que Denji pode fazer é sonhar com uma vida boa e simples: uma com comida deliciosa e uma linda namorada ao seu lado. Mas um ato de traição gananciosa da yakuza leva à morte brutal e prematura de Denji, destruindo toda a esperança de que ele alcance a felicidade.', 'Outono', 'Anime'),
-(53, 57, 'A-1 Pictures, Trigger, CloverWorks', 'Ação, Drama, Romance, Ficção científica, Mecha', 'Original', 0, 'Em um futuro distante, a humanidade foi levada à quase extinção por feras gigantes conhecidas como Klaxossauros, forçando os humanos sobreviventes a se refugiarem em enormes cidades-fortaleza chamadas Plantações. Crianças criadas aqui são treinadas para pilotar mechas gigantes conhecidos como FranXX — as únicas armas conhecidas por serem eficazes contra os Klaxossauros — em pares de meninos e meninas. Criadas com o único propósito de pilotar essas máquinas, essas crianças desconhecem o mundo exterior e só conseguem provar sua existência defendendo sua raça.', 'Inverno', 'Anime');
+INSERT INTO `informacoes` (`id`, `anime_id`, `estudio`, `sub_generos`, `fonte`, `episodios`, `sinopse`, `temporada`, `formato`, `diretor`, `ano_lancamento`) VALUES
+(49, 53, 'Toei Animation', 'Ação, Aventura, Comédia, Fantasia', 'Mangá', 0, 'Cinco anos após vencer o torneio de Artes Marciais, Gokuu agora vive uma vida pacífica com sua esposa e filho. Isso muda, no entanto, com a chegada de um misterioso inimigo chamado Raditz, que se apresenta como o irmão há muito perdido de Gokuu. Ele revela que Gokuu é descendente da outrora poderosa, mas agora praticamente extinta raça Saiyajin, cujo planeta natal foi aniquilado. Quando foi enviado à Terra ainda bebê, o único propósito de Gokuu era conquistar e destruir o planeta; mas após sofrer amnésia devido a um ferimento na cabeça, sua natureza violenta e selvagem mudou, e em vez disso foi criado como um menino gentil e bem-educado, agora lutando para proteger os outros.', 'Primavera', 'Anime', NULL, NULL),
+(51, 55, 'ufotable', 'Ação, Premiado, Sobrenatural', 'Mangá', 0, 'Desde a morte de seu pai, o fardo de sustentar a família recai sobre os ombros de Tanjirou Kamado. Apesar de viverem na miséria em uma montanha remota, a família Kamado consegue desfrutar de uma vida relativamente pacífica e feliz. Um dia, Tanjirou decide ir até a aldeia local para ganhar algum dinheiro vendendo carvão. No caminho de volta, a noite cai, forçando Tanjirou a se abrigar na casa de um homem estranho, que o avisa da existência de demônios carnívoros que espreitam na floresta à noite.', 'Primavera', 'Anime', NULL, NULL),
+(52, 56, 'MAPPA', 'Ação, Fantasia', 'Mangá', 0, 'Denji é privado de uma vida normal de adolescente, restando-lhe apenas a dívida avassaladora de seu pai caloteiro. Sua única companhia é seu animal de estimação, o demônio da motosserra Pochita, com quem ele mata demônios por dinheiro que inevitavelmente acaba nos bolsos da yakuza. Tudo o que Denji pode fazer é sonhar com uma vida boa e simples: uma com comida deliciosa e uma linda namorada ao seu lado. Mas um ato de traição gananciosa da yakuza leva à morte brutal e prematura de Denji, destruindo toda a esperança de que ele alcance a felicidade.', 'Outono', 'Anime', NULL, NULL),
+(53, 57, 'A-1 Pictures, Trigger, CloverWorks', 'Ação, Drama, Romance, Ficção científica, Mecha', 'Original', 0, 'Em um futuro distante, a humanidade foi levada à quase extinção por feras gigantes conhecidas como Klaxossauros, forçando os humanos sobreviventes a se refugiarem em enormes cidades-fortaleza chamadas Plantações. Crianças criadas aqui são treinadas para pilotar mechas gigantes conhecidos como FranXX — as únicas armas conhecidas por serem eficazes contra os Klaxossauros — em pares de meninos e meninas. Criadas com o único propósito de pilotar essas máquinas, essas crianças desconhecem o mundo exterior e só conseguem provar sua existência defendendo sua raça.', 'Inverno', 'Anime', NULL, NULL),
+(54, 58, 'Bones Film', 'Ação , Fantasia', 'Mangá', NULL, 'Vivendo nas favelas de uma cidade rica, Rudo e seu pai adotivo, Regto, tentam coexistir com os demais moradores da cidade, mas Rudo despreza o desperdício da classe alta. Ignorando os avisos daqueles ao seu redor, Rudo vasculha regularmente o lixo da cidade em busca de algo útil ou valioso para salvar do \"Abismo\" — um enorme buraco onde tudo o que é considerado lixo é despejado, incluindo pessoas. O pai biológico de Rudo era uma dessas pessoas, tendo sido jogado no Abismo após ser acusado de assassinato.', 'Verão', 'Anime', 'Suganuma, Fumihiko', '2025'),
+(57, 61, 'CloverWorks', 'Romance, comédia', 'Mangá', NULL, 'O estudante do ensino médio Wakana Gojou passa os dias aperfeiçoando a arte de fazer bonecas hina, na esperança de eventualmente alcançar o nível de perícia de seu avô. Enquanto seus colegas adolescentes se ocupam com a cultura pop, Gojou encontra a felicidade em costurar roupas para suas bonecas. No entanto, ele faz de tudo para manter seu hobby único em segredo, pois acredita que seria ridicularizado se fosse revelado.', 'Inverno', '', 'Shinohara, Keisuke', '2022'),
+(58, 62, 'Pierrot', 'Ação, Aventura, Fantasia', 'Mangá', NULL, 'Após o fim bem-sucedido da Quarta Guerra Mundial Ninja, Konohagakure tem desfrutado de um período de paz, prosperidade e extraordinário avanço tecnológico. Tudo isso graças aos esforços das Forças Aliadas Shinobi e do Sétimo Hokage da vila, Naruto Uzumaki. Agora, assemelhando-se a uma metrópole moderna, Konohagakure mudou, especialmente a vida de um shinobi. Sob o olhar atento de Naruto e seus antigos companheiros, uma nova geração de shinobi se destacou para aprender os costumes dos ninjas.', 'Primavera', '', 'Abe, Noriyuki', '2017');
 
 -- --------------------------------------------------------
 
@@ -544,7 +576,8 @@ INSERT INTO `temporadas_animes` (`id`, `anime_id`, `numero`, `nome`) VALUES
 (15, 55, 4, 'Temporada 4'),
 (16, 55, 5, 'Temporada 5'),
 (17, 56, 1, 'Temporada 1'),
-(18, 57, 1, 'Temporada 1');
+(18, 57, 1, 'Temporada 1'),
+(21, 58, 1, 'Temporada 1');
 
 -- --------------------------------------------------------
 
@@ -569,7 +602,8 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `imagen`, `criado_em`, `imagem_perfil`) VALUES
 (14, 'Evil', 'evil@gmail.com', '$2y$10$DunGKSE5R4SEEvGL2LPONuEz5PF0dLcHBdakLXCi.5zyaZZD6SwqC', NULL, '2025-08-01 00:26:02', 'uploads/perfil_688c099a3d1e04.22991686.jpg'),
 (15, 'ADM', 'admin@admin.com', '$2y$10$rOXWDXnw0k/lmriG1K1AOuivjFmCbirnAeJh/llvhUS5SWJqgSgsi', NULL, '2025-06-24 01:01:59', NULL),
-(18, 'Fran', 'francisco.cardoso.teixeira777@gmail.com', '$2y$10$NzjMyi1PHIWhoNDOT5EVb.bFRzRFh4A87ONwX5rlnrrppbyxbYTKC', NULL, '2025-08-01 00:57:31', 'uploads/perfil_688c10fbaacb95.58264013.jpg');
+(18, 'Fran', 'francisco.cardoso.teixeira777@gmail.com', '$2y$10$NzjMyi1PHIWhoNDOT5EVb.bFRzRFh4A87ONwX5rlnrrppbyxbYTKC', NULL, '2025-08-01 00:57:31', 'uploads/perfil_688c10fbaacb95.58264013.jpg'),
+(20, 'Mine977', 'agustinhocarrara@gmail.com', '$2y$10$EikNMrmqEoPlmiq8kB5rjOHp9.2oV/AFCMp.LeaTffsD61ENhhrQS', NULL, '2025-08-01 22:41:38', 'uploads/perfil_688d42a2964126.19335051.jpg');
 
 --
 -- Índices para tabelas despejadas
@@ -621,13 +655,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `animes_geral`
 --
 ALTER TABLE `animes_geral`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT de tabela `episodios`
 --
 ALTER TABLE `episodios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=398;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=432;
 
 --
 -- AUTO_INCREMENT de tabela `filmes`
@@ -639,19 +673,19 @@ ALTER TABLE `filmes`
 -- AUTO_INCREMENT de tabela `informacoes`
 --
 ALTER TABLE `informacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT de tabela `temporadas_animes`
 --
 ALTER TABLE `temporadas_animes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Restrições para tabelas despejadas

@@ -5,6 +5,7 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
+// Conexão com o banco
 $host = "localhost";
 $db   = "animexone";
 $user = "root";
@@ -15,15 +16,18 @@ if ($conn->connect_error) {
     die("Erro na conexão: " . $conn->connect_error);
 }
 
+// Buscar animes do gênero shounen
+$animesShounen = [];
 $sql = "SELECT * FROM animes_geral WHERE genero='shounen' ORDER BY criado_em DESC";
 $result = $conn->query($sql);
-
-$animesShounen = [];
 if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $animesShounen[] = $row;
     }
 }
+
+// Fecha conexão antes do HTML final
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -48,9 +52,9 @@ if ($result && $result->num_rows > 0) {
     <h2 class="titulo-sessao">Gênero: Shounen</h2>
     <div class="animes_assistindo">
       <?php if (count($animesShounen) > 0): ?>
-        <?php foreach($animesShounen as $anime): ?>
+        <?php foreach ($animesShounen as $anime): ?>
           <div class="anime-item">
-            <a href="anime.php?id=<?php echo $anime['id']; ?>">
+            <a href="anime.php?id=<?php echo htmlspecialchars($anime['id']); ?>">
               <img src="<?php echo htmlspecialchars($anime['imagem']); ?>" alt="<?php echo htmlspecialchars($anime['nome']); ?>" />
               <span class="anime-link"><?php echo htmlspecialchars($anime['nome']); ?></span>
             </a>
@@ -66,7 +70,3 @@ if ($result && $result->num_rows > 0) {
   <script src="script-menu.js"></script>
 </body>
 </html>
-
-<?php
-$conn->close();
-?>
