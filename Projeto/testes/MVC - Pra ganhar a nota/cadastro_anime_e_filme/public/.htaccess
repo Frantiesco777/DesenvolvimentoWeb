@@ -1,0 +1,9 @@
+#RewriteEngine On
+
+# Se o arquivo ou pasta existir, serve direto (css, js, imagens, etc)
+#RewriteCond %{REQUEST_FILENAME} -f [OR]
+#RewriteCond %{REQUEST_FILENAME} -d
+#RewriteRule ^ - [L]
+
+# Caso contrário, encaminha tudo para ../routes.php (no nível acima da pasta public)
+#RewriteRule ^(.*)$ ../routes.php [QSA,L]
