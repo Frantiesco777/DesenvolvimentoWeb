@@ -1,0 +1,4 @@
+Para logar o cadastro:
+
+Email: admin@email.com
+Senha: 123

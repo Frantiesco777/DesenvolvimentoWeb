@@ -1,0 +1,314 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+/* --- Barra do usuário --- */
+.user-bar {
+    background: #1e1e2f;
+    color: #f0f0f5;
+    padding: 12px 20px;
+    text-align: right;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    user-select: none;
+}
+.user-bar span {
+    margin-right: 20px;
+    font-size: 0.95rem;
+}
+.logout-btn {
+    color: #ff6b6b;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+.logout-btn:hover {
+    color: #ff3b3b;
+    text-decoration: underline;
+}
+
+/* --- Container da lista --- */
+.lista-container {
+    max-width: 1000px;
+    margin: 30px auto 60px;
+    padding: 0 15px;
+
+    /* Adiciona display flex para lado a lado */
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+}
+
+/* Contêineres das listas filmes e animes */
+.lista-filmes, .lista-animes {
+    flex: 1;
+    max-width: 48%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 50px;
+}
+
+/* Títulos */
+.lista-titulo {
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    border-bottom: 3px solid #5a67d8;
+    padding-bottom: 8px;
+}
+
+/* Cards */
+.anime, .filme, .lista-animes .item, .lista-filmes .item {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px 25px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer; /* torna clicável */
+    text-decoration: none; /* remove sublinhado de links */
+    color: inherit; /* mantém cor do texto */
+    display: block;
+}
+.anime:hover, .filme:hover, .lista-animes .item:hover, .lista-filmes .item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Cores distintas */
+.anime, .lista-animes .item {
+    border-left: 8px solid #f6ad55; /* Laranja suave */
+}
+.filme, .lista-filmes .item {
+    border-left: 8px solid #63b3ed; /* Azul suave */
+}
+
+/* Títulos internos dos cards */
+.anime h3, .filme h3, .lista-animes .item h3, .lista-filmes .item h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #1a202c;
+}
+
+/* Textos dentro dos cards */
+.anime p, .filme p, .lista-animes .item p, .lista-filmes .item p {
+    font-size: 0.95rem;
+    color: #4a5568;
+    margin-bottom: 6px;
+    line-height: 1.3;
+}
+
+/* Mensagem sucesso/erro */
+.mensagem {
+    max-width: 1000px;
+    margin: 20px auto;
+    background-color: #e6fffa;
+    border-left: 6px solid #38b2ac;
+    color: #2c7a7b;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+}
+
+/* Formulário de cadastro */
+.form-cadastro {
+    max-width: 600px;
+    margin: 40px auto 60px;
+    background: #f7fafc;
+    padding: 30px 35px;
+    border-radius: 16px;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+}
+.form-cadastro:hover {
+    box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+}
+
+.form-cadastro label {
+    display: block;
+    margin-top: 20px;
+    font-weight: 600;
+    color: #2d3748;
+    letter-spacing: 0.03em;
+    user-select: none;
+}
+
+.form-cadastro input,
+.form-cadastro select {
+    width: 100%;
+    padding: 12px 15px;
+    margin-top: 8px;
+    border: 1.8px solid #cbd5e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+.form-cadastro input:focus,
+.form-cadastro select:focus {
+    outline: none;
+    border-color: #5a67d8;
+    box-shadow: 0 0 8px rgba(90,103,216,0.35);
+}
+
+.form-cadastro button {
+    width: 100%;
+    margin-top: 30px;
+    padding: 14px;
+    background-color: #5a67d8;
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background-color 0.3s ease;
+}
+.form-cadastro button:hover {
+    background-color: #434190;
+}
+
+/* Container login */
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    background: #f7fafc;
+    padding: 35px 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+}
+.login-container:hover {
+    box-shadow: 0 14px 40px rgba(0,0,0,0.15);
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 28px;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #2d3748;
+    letter-spacing: 0.05em;
+}
+
+.login-container label {
+    display: block;
+    margin-top: 18px;
+    font-weight: 600;
+    color: #4a5568;
+    user-select: none;
+}
+
+.login-container input[type="email"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 14px 15px;
+    margin-top: 8px;
+    border-radius: 12px;
+    border: 1.8px solid #cbd5e0;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+.login-container input[type="email"]:focus,
+.login-container input[type="password"]:focus {
+    outline: none;
+    border-color: #5a67d8;
+    box-shadow: 0 0 10px rgba(90,103,216,0.4);
+}
+
+.login-container button {
+    width: 100%;
+    margin-top: 28px;
+    padding: 16px;
+    background-color: #5a67d8;
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 14px;
+    font-size: 1.15rem;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background-color 0.3s ease;
+}
+.login-container button:hover {
+    background-color: #434190;
+}
+
+/* Mensagem de erro no login */
+.erro {
+    color: #e53e3e;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+/* Botão da lista */
+.btn-listar {
+    display: inline-block;
+    margin-bottom: 25px;
+    padding: 12px 24px;
+    background-color: #5a67d8;
+    color: white;
+    font-weight: 700;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    user-select: none;
+}
+.btn-listar:hover {
+    background-color: #434190;
+}
+
+/* Botão Remover ao lado dos cards */
+.remover-form {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.btn-remover {
+    background-color: #e53e3e;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    user-select: none;
+    box-shadow: 0 2px 6px rgba(229, 62, 62, 0.4);
+}
+
+.btn-remover:hover {
+    background-color: #9b2c2c;
+    box-shadow: 0 4px 12px rgba(155, 44, 44, 0.6);
+}
+
+/* Botão voltar */
+
+.btn-voltar {
+    display: inline-block;
+    margin: 30px auto 15px 15px;
+    padding: 12px 24px;
+    background-color: #5a67d8;
+    color: white;
+    font-weight: 700;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    user-select: none;
+}
+.btn-voltar:hover {
+    background-color: #434190;
+}
